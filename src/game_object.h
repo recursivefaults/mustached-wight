@@ -1,11 +1,13 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include "graphics.h"
-#include "graphics_component.h"
-#include "input_component.h"
+#include "zombie_walk.h"
+
 
 class Graphics;
+class InputComponent;
+class GraphicsComponent;
+class InputState;
 
 class GameObject {
     public:
@@ -15,7 +17,7 @@ class GameObject {
             input(inputComponent) {};
         ~GameObject();
 
-        void update(int elapsedTime, const Graphics &graphics);
+        void update(int elapsedTime, const Graphics &graphics, const InputState &state);
 
     private:
         int x, y;

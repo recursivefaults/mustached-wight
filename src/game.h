@@ -14,6 +14,7 @@ private:
     bool isRunning;
     Graphics graphics;
     std::vector<StaticSprite*> textures;
+    InputState inputState;
 public:
     Game();
     ~Game();

@@ -59,6 +59,9 @@ void Game::render() {
     graphics.render();
 }
 void Game::processInput() {
+
+        inputState.reset();
+
         SDL_Event input;
         //Get an event
         SDL_PollEvent(&input);
@@ -66,6 +69,12 @@ void Game::processInput() {
             case SDL_QUIT:
                 std::cout << "Quit event!" << std::endl;
                 isRunning = false;
+                break;
+            case SDL_KEYUP:
+                inputState.keyUpEvent(input);
+                break;
+            case SDL_KEYDOWN:
+                inputState.keyDownEvent(input);
                 break;
         }
 }

@@ -6,8 +6,11 @@
 #include <cassert>
 #include <string>
 #include <vector>
-
 #include "game_object.h"
+#include "graphics.h"
+#include "graphics_component.h"
+#include "input_component.h"
+#include "input_state.h"
 
 
 
