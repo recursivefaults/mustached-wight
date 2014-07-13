@@ -14,17 +14,8 @@ Graphics::~Graphics() {
         SDL_DestroyWindow(window);
 }
 
-SDL_Texture* Graphics::loadTexture(const std::string &file) {
-    //TODO: Deal with asset pathing
-    std::string full_path = std::string(SDL_GetBasePath()); 
-    full_path += "assets/" + file;
-    std::cout << "Path for asset: " << full_path << std::endl;
-    return IMG_LoadTexture(renderer, full_path.c_str());
-    
-}
-
 void Graphics::drawTexture(SDL_Texture *texture,
-            SDL_Rect *destination,
-            SDL_Rect *sourceRect) {
+            const SDL_Rect *destination,
+            const SDL_Rect *sourceRect) {
     SDL_RenderCopy(renderer, texture, sourceRect, destination);
 }

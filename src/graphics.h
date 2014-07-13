@@ -8,11 +8,11 @@ class Graphics {
     Graphics();
     ~Graphics();
     void drawTexture(SDL_Texture *texture,
-            SDL_Rect *destination,
-            SDL_Rect *sourceRect = nullptr);
-    SDL_Texture *loadTexture(const std::string&);
+            const SDL_Rect *destination,
+            const SDL_Rect *sourceRect = nullptr);
     void clearRenderer() { SDL_RenderClear(renderer); };
     void render() { SDL_RenderPresent(renderer);};
+    SDL_Renderer *getRenderer() { return renderer;}
 
     private:
     SDL_Renderer *renderer;

@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include <cassert>
 #include <string>
+#include <vector>
 
 
 
