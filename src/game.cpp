@@ -1,4 +1,5 @@
 #include "game.h"
+#include "entity_factory.h"
 #include <iostream>
 
 Game::~Game() {
@@ -7,7 +8,7 @@ Game::~Game() {
 
 
 Game::Game() {
-    textures = std::vector<StaticSprite *>();
+    entities = std::vector<GameObject *>();
 }
 
 
@@ -16,19 +17,12 @@ void Game::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
         std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
     }
+    EntityFactory factory;
     graphics = Graphics();
     graphics.clearRenderer();
     isRunning = true;
 
-    SDL_Rect src;
-    src.x = 0;
-    src.y = 0;
-    SDL_Rect dest;
-    dest.x = 100;
-    dest.y = 100;
-    dest.w = 100;
-    dest.h = 100;
-    textures.push_back(new StaticSprite("guy.png", src, dest, graphics));
+    entities.push_back(factory.createGuy(graphics));
 }
 
 void Game::mainLoop() {
@@ -49,11 +43,13 @@ void Game::mainLoop() {
 
 
 void Game::update(const int deltaInMs) {
+    for(auto *sprite : entities) {
+    }
 }
 
 void Game::render() {
     graphics.clearRenderer();
-    for(auto *sprite : textures) {
+    for(auto *sprite : entities) {
         sprite->draw(graphics);
     }
     graphics.render();

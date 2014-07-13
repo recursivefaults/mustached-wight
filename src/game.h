@@ -3,7 +3,7 @@
 
 #include "zombie_walk.h"
 #include "graphics.h"
-#include "static_sprite.h"
+#include "game_object.h"
 
 namespace {
     int kFPS = 60;
@@ -13,7 +13,7 @@ class Game {
 private:
     bool isRunning;
     Graphics graphics;
-    std::vector<StaticSprite*> textures;
+    std::vector<GameObject*> entities;
     InputState inputState;
 public:
     Game();
