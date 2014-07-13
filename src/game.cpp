@@ -1,5 +1,4 @@
 #include "game.h"
-#include "graphics.h"
 #include <iostream>
 
 Game::~Game() {
@@ -11,35 +10,46 @@ void Game::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
         std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
     }
+    graphics = Graphics();
+    isRunning = true;
 
 }
 
 void Game::mainLoop() {
-    Graphics graphics;
-    SDL_Rect rect;
-    rect.x = 100;
-    rect.y = 100;
-    rect.w = 100;
-    rect.h = 100;
 
-    SDL_Texture *tex = graphics.loadTexture("guy.png");
-    assert(tex != nullptr);
+    int startTimeMs = SDL_GetTicks();
+    while(isRunning) {
+        const int elapsedTime = SDL_GetTicks() - startTimeMs;
+        processInput();
+        update(elapsedTime);
+        render();
+        int tick = 1000/kFPS;
+        if(elapsedTime < tick) {
+            SDL_Delay(tick - elapsedTime);
+        }
+        startTimeMs = SDL_GetTicks();
+        
+    }
+}
 
-    SDL_Event input;
-    bool running = true;
-    while(running) {
+
+void Game::update(const int deltaInMs) {
+}
+
+void Game::render() {
+    graphics.clearRenderer();
+    //graphics.drawTexture(tex, &rect);
+    graphics.render();
+}
+void Game::processInput() {
+        SDL_Event input;
         //Get an event
         SDL_PollEvent(&input);
         switch(input.type){
             case SDL_QUIT:
                 std::cout << "Quit event!" << std::endl;
-                running = false;
+                isRunning = false;
                 break;
         }
-        graphics.drawTexture(tex, &rect);
-
-    }
-    SDL_DestroyTexture(tex);
 }
-
 

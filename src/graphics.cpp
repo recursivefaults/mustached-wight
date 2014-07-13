@@ -26,10 +26,5 @@ SDL_Texture* Graphics::loadTexture(const std::string &file) {
 void Graphics::drawTexture(SDL_Texture *texture,
             SDL_Rect *destination,
             SDL_Rect *sourceRect) {
-    //Clear things out
-    SDL_RenderClear(renderer);
-    //Copy the texture to the rendererer
     SDL_RenderCopy(renderer, texture, sourceRect, destination);
-    //Present the rendererer
-    SDL_RenderPresent(renderer);
 }

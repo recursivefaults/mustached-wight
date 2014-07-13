@@ -11,6 +11,8 @@ class Graphics {
             SDL_Rect *destination,
             SDL_Rect *sourceRect = nullptr);
     SDL_Texture *loadTexture(const std::string&);
+    void clearRenderer() { SDL_RenderClear(renderer); };
+    void render() { SDL_RenderPresent(renderer);};
 
     private:
     SDL_Renderer *renderer;
