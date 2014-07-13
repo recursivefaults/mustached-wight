@@ -6,7 +6,7 @@ CXXFLAGS = -Wall -c -std=c++11 -I /usr/local/include
 LDFLAGS = $(SDL)
 SRCDIR = src
 EXE = zombie
-OBJECTS = src/static_sprite.o src/graphics.o src/game.o src/main.o
+OBJECTS = src/game_object.o src/static_sprite.o src/graphics.o src/game.o src/main.o
 
 all: $(EXE)
 

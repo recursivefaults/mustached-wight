@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include "game_object.h"
+
 
 
 #endif
