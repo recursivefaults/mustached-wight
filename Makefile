@@ -1,8 +1,8 @@
 CXX = clang++
-SDL = -lSDL2 -v
+SDL = -L /usr/local/lib/ -lSDL2 -v
 # If your compiler is a bit older you may need to change -std=c++11 to
 # -std=c++0x
-CXXFLAGS = -Wall -v -c -std=c++11
+CXXFLAGS = -Wall -v -c -std=c++11 -I /usr/local/include
 LDFLAGS = $(SDL)
 SRCDIR = src
 EXE = zombie
