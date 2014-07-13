@@ -6,14 +6,6 @@ Game::~Game() {
     SDL_Quit();
 }
 
-SDL_Texture* Game::loadTexture(const std::string &file, SDL_Renderer *renderer) {
-    //TODO: Deal with asset pathing
-    std::string full_path = std::string(SDL_GetBasePath()); 
-    full_path += "assets/" + file;
-    std::cout << "Path for asset: " << full_path << std::endl;
-    return IMG_LoadTexture(renderer, full_path.c_str());
-    
-}
 
 void Game::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
@@ -30,7 +22,7 @@ void Game::mainLoop() {
     rect.w = 100;
     rect.h = 100;
 
-    SDL_Texture *tex = loadTexture("guy.png", render);
+    SDL_Texture *tex = graphics.loadTexture("guy.png");
     assert(tex != nullptr);
 
     SDL_Event input;
