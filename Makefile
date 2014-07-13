@@ -4,16 +4,20 @@ SDL = -L /usr/local/lib/ -lSDL2 -lSDL2_image -v
 # -std=c++0x
 CXXFLAGS = -Wall -v -c -std=c++11 -I /usr/local/include
 LDFLAGS = $(SDL)
+
 SRCDIR = src
 EXE = zombie
+zombie:
+	clang++ -o zombie src/*.cpp -I /usr/local/include -Wall -std=c++11 -L /usr/local/lib -lSDL2 -lSDL2_image
+
+
+#all: $(EXE)
 #
-all: $(EXE)
+#$(EXE): *.o 
+#	$(CXX) $(LDFLAGS) $< -o $@
 #
-$(EXE): main.o
-	$(CXX) $(LDFLAGS) $< -o $@
+#%.o: src/%.cpp
+#	$(CXX) $(CXXFLAGS) $< -o $@
 #
-main.o: src/main.cpp
-	$(CXX) $(CXXFLAGS) $< -o $@
-#
-clean:
-	rm *.o && rm $(EXE)
+#clean:
+#	rm *.o && rm $(EXE)

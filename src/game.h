@@ -1,9 +1,9 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef GAME_H
+#define GAME_H
 
 #include "zombie_walk.h"
 
-class ZombieWalk {
+class Game {
     SDL_Window *window;
     SDL_Renderer *render;
 
@@ -11,7 +11,7 @@ class ZombieWalk {
     void renderTexture(SDL_Texture*, SDL_Renderer*, int, int, int, int);
     
 public:
-    ~ZombieWalk();
+    ~Game();
     void init();
 
     void mainLoop();
