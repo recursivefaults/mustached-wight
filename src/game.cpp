@@ -43,15 +43,13 @@ void Game::mainLoop() {
 
 
 void Game::update(const int deltaInMs) {
-    for(auto *sprite : entities) {
+    for(auto *entity : entities) {
+        entity->update(deltaInMs, graphics, inputState);
     }
 }
 
 void Game::render() {
     graphics.clearRenderer();
-    for(auto *sprite : entities) {
-        sprite->draw(graphics);
-    }
     graphics.render();
 }
 void Game::processInput() {

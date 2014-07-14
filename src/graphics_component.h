@@ -10,8 +10,8 @@ class Graphics;
 
 class GraphicsComponent {
     public:
-    virtual ~GraphicsComponent();
-    virtual void update(GameObject &object, const Graphics &graphics) = 0;
+    virtual ~GraphicsComponent() {};
+    virtual void update(GameObject &object, Graphics &graphics) = 0;
 };
 
 #endif

@@ -16,12 +16,12 @@ class GameObject {
             graphics(graphicsComponent), 
             input(inputComponent) {};
         ~GameObject();
-
-        void update(int elapsedTime, const Graphics &graphics, const InputState &state);
-
-    private:
         int x, y;
         float velocity;
+
+        void update(int elapsedTime, Graphics &graphics, const InputState &state);
+
+    private:
         //PhysicsComponent *physics;
         GraphicsComponent *graphics;
         InputComponent *input;
