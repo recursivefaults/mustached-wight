@@ -10,19 +10,19 @@ namespace {
 
 void GuyInputComponent::update(GameObject &object, InputState &state) {
     if(state.wasKeyPressed(SDLK_d)) {
-        object.y += kHorizontal;
+        object.x += kHorizontal;
         std::cout << "D Pressed" << std::endl;
     }
     if(state.wasKeyPressed(SDLK_a)) {
-        object.y -= kHorizontal;
+        object.x -= kHorizontal;
         std::cout << "A Pressed" << std::endl;
     }
     if(state.wasKeyPressed(SDLK_w)) {
-        object.x -= kVertical;
+        object.y -= kVertical;
         std::cout << "W Pressed" << std::endl;
     }
     if(state.wasKeyPressed(SDLK_s)) {
-        object.x += kVertical;
+        object.y += kVertical;
         std::cout << "S Pressed" << std::endl;
     }
 
