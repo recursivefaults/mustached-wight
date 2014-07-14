@@ -11,8 +11,6 @@ Game::Game() {
     entities = std::vector<GameObject *>();
 }
 
-
-
 void Game::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
         std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
@@ -33,6 +31,7 @@ void Game::mainLoop() {
         processInput();
         update(elapsedTime);
         render();
+
         int tick = 1000/kFPS;
         if(elapsedTime < tick) {
             SDL_Delay(tick - elapsedTime);

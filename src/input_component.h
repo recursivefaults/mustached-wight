@@ -7,7 +7,7 @@
 class InputComponent {
     public:
     virtual ~InputComponent() {};
-    virtual void update(GameObject &object, const InputState &state) = 0;
+    virtual void update(GameObject &object, InputState &state) = 0;
 };
 
 #endif

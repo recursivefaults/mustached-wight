@@ -19,7 +19,7 @@ class GameObject {
         int x, y;
         float velocity;
 
-        void update(int elapsedTime, Graphics &graphics, const InputState &state);
+        void update(int elapsedTime, Graphics &graphics, InputState &state);
 
     private:
         //PhysicsComponent *physics;
