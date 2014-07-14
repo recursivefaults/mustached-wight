@@ -1,11 +1,13 @@
 #ifndef SIMPLEGRAPHICSCOMPONENT_H
 #define SIMPLEGRAPHICSCOMPONENT_H
 
+#include <string>
+
 #include "zombie_walk.h"
+
+#include "game_object.h"
 #include "graphics_component.h"
 #include "graphics.h"
-
-class GraphicsComponent;
 
 class SimpleGraphicsComponent : public GraphicsComponent {
     public:

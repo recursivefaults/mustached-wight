@@ -1,4 +1,5 @@
 #include "input_state.h"
+
 void InputState::keyUpEvent(SDL_Event &event) {
     released[event.key.keysym.sym] = true;
     held[event.key.keysym.sym] = false;

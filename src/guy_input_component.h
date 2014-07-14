@@ -2,5 +2,5 @@
 
 class GuyInputComponent : public InputComponent {
     ~GuyInputComponent() {};
-    virtual void update(GameObject &object, InputState &state);
+    void update(GameObject &object, InputState &state);
 };

@@ -1,17 +1,19 @@
 #ifndef GRAPHICSCOMPONENT_H
 #define GRAPHICSCOMPONENT_H
 
-#include "game_object.h"
+#include "asset_helper.h"
 #include "graphics.h"
-
+#include "game_object.h"
 
 class GameObject;
-class Graphics;
 
 class GraphicsComponent {
     public:
-    virtual ~GraphicsComponent() {};
-    virtual void update(GameObject &object, Graphics &graphics) = 0;
+        virtual ~GraphicsComponent() {};
+        virtual void update(GameObject &object, Graphics &graphics) = 0;
+
+    protected:
+        AssetHelper assetHelper;
 };
 
 #endif

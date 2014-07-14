@@ -1,7 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <vector>
 #include "zombie_walk.h"
+
 #include "graphics.h"
 #include "game_object.h"
 

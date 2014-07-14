@@ -1,13 +1,13 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include "zombie_walk.h"
+#include "graphics.h"
+#include "graphics_component.h"
+#include "input_component.h"
+#include "input_state.h"
 
-
-class Graphics;
-class InputComponent;
 class GraphicsComponent;
-class InputState;
+class InputComponent;
 
 class GameObject {
     public:

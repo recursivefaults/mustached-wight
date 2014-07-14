@@ -1,6 +1,6 @@
-#include "simple_graphics_component.h"
 #include <iostream>
 #include <cassert>
+#include "simple_graphics_component.h"
 
 namespace {
     int kTileWidth = 30;
@@ -10,8 +10,7 @@ namespace {
 }
 
 SimpleGraphicsComponent::SimpleGraphicsComponent(const std::string &file, Graphics &graphics) {
-    std::string full_path = assetPath(file);
-    texture = IMG_LoadTexture(graphics.getRenderer(), full_path.c_str());
+    texture = assetHelper.loadNamedTexture(file, graphics);
     assert(texture != nullptr);
 }
 
@@ -26,12 +25,6 @@ void SimpleGraphicsComponent::update(GameObject &object, Graphics &graphics) {
     currentLocation.h = 24;
     SDL_Rect srcRect = getTileAt(kTileX, kTileY);
     graphics.drawTexture(texture, &currentLocation, &srcRect);
-}
-
-const std::string SimpleGraphicsComponent::assetPath(const std::string &file) {
-    std::string full_path = std::string(SDL_GetBasePath()); 
-    full_path += "assets/" + file;
-    return full_path;
 }
 
 SDL_Rect SimpleGraphicsComponent::getTileAt(int x, int y) {
