@@ -14,6 +14,7 @@ class SimpleGraphicsComponent : public GraphicsComponent {
         void update(GameObject &object, Graphics &graphics);
 
     private:
+        SDL_Rect getTileAt(int tileX, int tileY);
         const std::string assetPath(const std::string &file);
         SDL_Rect currentLocation;
         SDL_Texture *texture;
