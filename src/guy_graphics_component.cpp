@@ -4,7 +4,7 @@
 GuyGraphicsComponent::GuyGraphicsComponent(Graphics &graphics) {
     SDL_Rect locationInSprite;
     locationInSprite.x = 0;
-    locationInSprite.y = 140;
+    locationInSprite.y = 60;
     locationInSprite.w = 32;
     locationInSprite.h = 20;
     guySprite = new StaticSprite("guy.png", graphics, locationInSprite);

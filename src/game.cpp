@@ -1,5 +1,6 @@
 #include "game.h"
 #include "entity_factory.h"
+#include "TileMap.h"
 #include <iostream>
 
 Game::~Game() {
@@ -25,12 +26,14 @@ void Game::init() {
 
 void Game::mainLoop() {
 
+    TileMap map = TileMap(graphics);
     int previousTimeMs = SDL_GetTicks();
     while(isRunning) {
         int current = SDL_GetTicks();
         const int elapsedTime = current - previousTimeMs;
         processInput();
         graphics.clearRenderer();
+        map.render(graphics);
         update(elapsedTime);
         render();
 
