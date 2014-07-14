@@ -3,29 +3,15 @@
 #include <cassert>
 
 namespace {
-    int kTileWidth = 25;
-    int kTileHeight = 24;
-    int kTileX = 17;
-    int kTileY = 6;
+    int kTileWidth = 30;
+    int kTileHeight = 20;
+    int kTileX = 0;
+    int kTileY = 7;
 }
 
 SimpleGraphicsComponent::SimpleGraphicsComponent(const std::string &file, Graphics &graphics) {
     std::string full_path = assetPath(file);
-    surface = IMG_Load(full_path.c_str());
-    assert(surface != nullptr);
-    Uint32 map;
-
-    if(isTransparentBlue(kTileX, kTileY)) {
-        std::cout << "Blue tile at (" << kTileX << ", " << kTileY << ")" << std::endl;
-        map = SDL_MapRGB(surface->format, 33, 255, 255);
-    }
-    else {
-        map = SDL_MapRGB(surface->format, 251, 0, 254);
-    }
-
-    SDL_SetColorKey(surface, 1, map);
-    texture = SDL_CreateTextureFromSurface(graphics.getRenderer(), surface);
-    SDL_FreeSurface(surface);
+    texture = IMG_LoadTexture(graphics.getRenderer(), full_path.c_str());
     assert(texture != nullptr);
 }
 
@@ -40,17 +26,6 @@ void SimpleGraphicsComponent::update(GameObject &object, Graphics &graphics) {
     currentLocation.h = 24;
     SDL_Rect srcRect = getTileAt(kTileX, kTileY);
     graphics.drawTexture(texture, &currentLocation, &srcRect);
-}
-bool SimpleGraphicsComponent::isTransparentBlue(int x, int y) {
-    int magentaFirst = y % 2;
-    if(magentaFirst == 0 && x % 2 !=0) {
-        return true;
-    }
-    if(magentaFirst != 0 && x%2 == 0) {
-        return true;
-    }
-    return false;
-
 }
 
 const std::string SimpleGraphicsComponent::assetPath(const std::string &file) {
