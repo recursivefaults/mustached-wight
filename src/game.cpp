@@ -29,6 +29,7 @@ void Game::mainLoop() {
     while(isRunning) {
         const int elapsedTime = SDL_GetTicks() - startTimeMs;
         processInput();
+        graphics.clearRenderer();
         update(elapsedTime);
         render();
 
@@ -48,7 +49,6 @@ void Game::update(const int deltaInMs) {
 }
 
 void Game::render() {
-    graphics.clearRenderer();
     graphics.render();
 }
 void Game::processInput() {

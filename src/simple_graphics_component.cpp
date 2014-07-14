@@ -1,8 +1,11 @@
 #include "simple_graphics_component.h"
+#include <iostream>
+#include <cassert>
 
 SimpleGraphicsComponent::SimpleGraphicsComponent(const std::string &file, Graphics &graphics) {
     std::string full_path = assetPath(file);
     texture = IMG_LoadTexture(graphics.getRenderer(), full_path.c_str());
+    assert(texture != nullptr);
 }
 
 SimpleGraphicsComponent::~SimpleGraphicsComponent() {
@@ -10,11 +13,11 @@ SimpleGraphicsComponent::~SimpleGraphicsComponent() {
 }
 
 void SimpleGraphicsComponent::update(GameObject &object, Graphics &graphics) {
-    SDL_Rect loc;
-    loc.x = object.x;
-    loc.y = object.y;
-    graphics.drawTexture(texture, &loc);
-    
+    currentLocation.x = object.x;
+    currentLocation.y = object.y;
+    currentLocation.w = 25;
+    currentLocation.h = 24;
+    graphics.drawTexture(texture, &currentLocation);
 }
 
 const std::string SimpleGraphicsComponent::assetPath(const std::string &file) {

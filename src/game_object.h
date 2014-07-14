@@ -13,6 +13,7 @@ class GameObject {
     public:
         GameObject(GraphicsComponent *graphicsComponent,
                 InputComponent *inputComponent):
+            x(100), y(100), velocity(0.0),
             graphics(graphicsComponent), 
             input(inputComponent) {};
         ~GameObject();

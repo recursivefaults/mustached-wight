@@ -15,6 +15,7 @@ class SimpleGraphicsComponent : public GraphicsComponent {
 
     private:
         const std::string assetPath(const std::string &file);
+        SDL_Rect currentLocation;
         SDL_Texture *texture;
 };
 
