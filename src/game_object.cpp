@@ -7,6 +7,6 @@ GameObject::~GameObject() {
 
 void GameObject::update(int elapsedTime, Graphics &graphics, InputState &state) {
     input->update(*this, state);
-    this->graphics->update(*this, graphics);
+    this->graphics->update(elapsedTime, *this, graphics);
 
 }

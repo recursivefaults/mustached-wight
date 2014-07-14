@@ -14,7 +14,3 @@ void StaticSprite::update(int deltaInMs, SDL_Rect &updatedLocation)
     currentLocation.y = updatedLocation.y;
     
 }
-void StaticSprite::render(Graphics &graphics)
-{
-    graphics.drawTexture(texture, &currentLocation, &locationInSheet);
-}

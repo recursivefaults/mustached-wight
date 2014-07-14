@@ -25,9 +25,10 @@ void Game::init() {
 
 void Game::mainLoop() {
 
-    int startTimeMs = SDL_GetTicks();
+    int previousTimeMs = SDL_GetTicks();
     while(isRunning) {
-        const int elapsedTime = SDL_GetTicks() - startTimeMs;
+        int current = SDL_GetTicks();
+        const int elapsedTime = current - previousTimeMs;
         processInput();
         graphics.clearRenderer();
         update(elapsedTime);
@@ -37,7 +38,7 @@ void Game::mainLoop() {
         if(elapsedTime < tick) {
             SDL_Delay(tick - elapsedTime);
         }
-        startTimeMs = SDL_GetTicks();
+        previousTimeMs = current;
     }
 }
 

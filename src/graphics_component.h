@@ -10,7 +10,7 @@ class GameObject;
 class GraphicsComponent {
     public:
         virtual ~GraphicsComponent() {};
-        virtual void update(GameObject &object, Graphics &graphics) = 0;
+        virtual void update(int deltaInMS, GameObject &object, Graphics &graphics) = 0;
 
     protected:
         AssetHelper assetHelper;

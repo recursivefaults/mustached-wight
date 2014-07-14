@@ -8,15 +8,18 @@
 #include "graphics.h"
 #include "game_object.h"
 #include "StaticSprite.h"
+#include "AnimatedSprite.h"
 
 class GuyGraphicsComponent : public GraphicsComponent {
     public:
         GuyGraphicsComponent(Graphics &graphics);
         ~GuyGraphicsComponent();
-        void update(GameObject &object, Graphics &graphics);
+        void update(int deltaInMS, GameObject &object, Graphics &graphics);
 
     private:
         StaticSprite *guySprite;
+        AnimatedSprite *walkLeft;
+        AnimatedSprite *walkRight;
 
 };
 
