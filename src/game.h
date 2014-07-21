@@ -5,7 +5,9 @@
 #include "zombie_walk.h"
 
 #include "graphics.h"
-#include "game_object.h"
+#include "World.h"
+#include "Entity.h"
+#include "input_state.h"
 
 namespace {
     int kFPS = 60;
@@ -15,8 +17,9 @@ class Game {
 private:
     bool isRunning;
     Graphics graphics;
-    std::vector<GameObject*> entities;
+    std::vector<Entity*> entities;
     InputState inputState;
+    World world;
 public:
     Game();
     ~Game();

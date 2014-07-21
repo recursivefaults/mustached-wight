@@ -1,5 +1,4 @@
-#include "game.h"
-#include "entity_factory.h"
+#include "Game.h"
 #include "TileMap.h"
 #include <iostream>
 
@@ -9,19 +8,18 @@ Game::~Game() {
 
 
 Game::Game() {
-    entities = std::vector<GameObject *>();
+    entities = std::vector<Entity *>();
 }
 
 void Game::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
         std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
     }
-    EntityFactory factory;
     graphics = Graphics();
     graphics.clearRenderer();
     isRunning = true;
 
-    entities.push_back(factory.createGuy(graphics));
+    //entities.push_back(factory.createGuy(graphics));
 }
 
 void Game::mainLoop() {
@@ -47,9 +45,9 @@ void Game::mainLoop() {
 
 
 void Game::update(const int deltaInMs) {
-    for(auto *entity : entities) {
-        entity->update(deltaInMs, graphics, inputState);
-    }
+    //for(auto *entity : entities) {
+    //    entity->update(deltaInMs, graphics, inputState);
+    //}
 }
 
 void Game::render() {

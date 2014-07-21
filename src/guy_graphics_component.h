@@ -5,8 +5,10 @@
 
 #include "zombie_walk.h"
 
+#include "graphics_component.h"
+
 #include "graphics.h"
-#include "game_object.h"
+#include "Entity.h"
 #include "StaticSprite.h"
 #include "AnimatedSprite.h"
 
@@ -14,7 +16,7 @@ class GuyGraphicsComponent : public GraphicsComponent {
     public:
         GuyGraphicsComponent(Graphics &graphics);
         ~GuyGraphicsComponent();
-        void update(int deltaInMS, GameObject &object, Graphics &graphics);
+        void update(int deltaInMS, Entity &object, Graphics &graphics);
 
     private:
         StaticSprite *guySprite;

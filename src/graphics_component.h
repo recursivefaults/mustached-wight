@@ -3,14 +3,14 @@
 
 #include "asset_helper.h"
 #include "graphics.h"
-#include "game_object.h"
+#include "Entity.h"
 
-class GameObject;
+class Entity;
 
 class GraphicsComponent {
     public:
         virtual ~GraphicsComponent() {};
-        virtual void update(int deltaInMS, GameObject &object, Graphics &graphics) = 0;
+        virtual void update(int deltaInMS, Entity &object, Graphics &graphics) = 0;
 
     protected:
         AssetHelper assetHelper;

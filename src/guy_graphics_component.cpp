@@ -20,18 +20,18 @@ GuyGraphicsComponent::~GuyGraphicsComponent() {
     delete(walkLeft);
 }
 
-void GuyGraphicsComponent::update(int deltaInMS, GameObject &guy, Graphics &graphics) {
+void GuyGraphicsComponent::update(int deltaInMS, Entity &guy, Graphics &graphics) {
     SDL_Rect currentLocation;
-    currentLocation.x = guy.x;
-    currentLocation.y = guy.y;
+    //currentLocation.x = guy.x;
+    //currentLocation.y = guy.y;
     Sprite *selectedSprite = guySprite;
 
-    if(guy.velocity > 0) {
-        selectedSprite = walkRight;
-    }
-    if(guy.velocity < 0) {
-        selectedSprite = walkLeft;
-    }
+    //if(guy.velocity > 0) {
+    //    selectedSprite = walkRight;
+    //}
+    //if(guy.velocity < 0) {
+    //    selectedSprite = walkLeft;
+    //}
     selectedSprite->update(deltaInMS, currentLocation);
     selectedSprite->render(graphics);
 }

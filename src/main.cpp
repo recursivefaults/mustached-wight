@@ -1,5 +1,5 @@
 
-#include "game.h"
+#include "Game.h"
 
 int main() {
     Game z = Game();
