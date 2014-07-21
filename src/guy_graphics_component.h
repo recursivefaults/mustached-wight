@@ -9,7 +9,6 @@
 
 #include "graphics.h"
 #include "Entity.h"
-#include "StaticSprite.h"
 #include "AnimatedSprite.h"
 
 class GuyGraphicsComponent : public GraphicsComponent {

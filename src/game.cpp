@@ -1,6 +1,8 @@
+#include <iostream>
 #include "Game.h"
 #include "TileMap.h"
-#include <iostream>
+
+#include "EntityFactory.h"
 
 Game::~Game() {
     SDL_Quit();
@@ -19,7 +21,9 @@ void Game::init() {
     graphics.clearRenderer();
     isRunning = true;
 
-    //entities.push_back(factory.createGuy(graphics));
+    EntityFactory factory;
+    Entity guy = factory.createGuy(world, graphics);
+    std::cout << "Created GUY: " << guy.getId() << std::endl;
 }
 
 void Game::mainLoop() {
