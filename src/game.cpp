@@ -10,7 +10,6 @@ Game::~Game() {
 
 
 Game::Game() {
-    entities = std::vector<Entity *>();
 }
 
 void Game::init() {
@@ -23,7 +22,6 @@ void Game::init() {
 
     EntityFactory factory;
     Entity guy = factory.createGuy(world, graphics);
-    std::cout << "Created GUY: " << guy.getId() << std::endl;
 }
 
 void Game::mainLoop() {
@@ -34,9 +32,11 @@ void Game::mainLoop() {
         int current = SDL_GetTicks();
         const int elapsedTime = current - previousTimeMs;
         processInput();
+
         graphics.clearRenderer();
         map.render(graphics);
         update(elapsedTime);
+
         render();
 
         int tick = 1000/kFPS;
@@ -55,6 +55,22 @@ void Game::update(const int deltaInMs) {
 }
 
 void Game::render() {
+    Sprite *s;
+    Position *p;
+    for(auto kv = world.sprites.begin(); kv != world.sprites.end(); kv++) {
+        std::map<int, Position *>::iterator pv = world.positions.find(kv->first);
+        if(pv == world.positions.end()) {
+            continue;
+        }
+        s = kv->second;
+        p = pv->second;
+        s->destinationRect.x = p->x;
+        s->destinationRect.y = p->y;
+        
+        //We have the sprite and the position, RENDER
+        graphics.drawTexture(s->texture, &s->destinationRect, &s->sourceRect);
+    }
+    
     graphics.render();
 }
 void Game::processInput() {

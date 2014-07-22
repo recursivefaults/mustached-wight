@@ -15,12 +15,6 @@ namespace {
 
 class Game 
 {
-    private:
-        bool isRunning;
-        Graphics graphics;
-        std::vector<Entity*> entities;
-        InputState inputState;
-        World world;
     public:
         Game();
         ~Game();
@@ -30,6 +24,11 @@ class Game
         void update(const int deltaInMs);
         void render();
         void processInput();
+    private:
+        bool isRunning;
+        Graphics graphics;
+        InputState inputState;
+        World world;
 
 };
 

@@ -1,7 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include <vector>
+#include <map>
 
 #include "Entity.h"
 #include "Components.h"
@@ -9,10 +9,10 @@
 class World
 {
     public:
-        std::vector<Entity>   entities;
-        std::vector<Sprite>   sprites;
-        std::vector<Position> positions;
-        std::vector<Velocity> velocities;
+        std::map<int, Entity *>   entities;
+        std::map<int, Sprite *>   sprites;
+        std::map<int, Position *> positions;
+        std::map<int, Velocity *> velocities;
     protected:
     private:
 };

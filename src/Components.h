@@ -16,8 +16,8 @@ struct Velocity
 class Sprite
 {
     public:
-        char *fileName;
-        int xOffset, yOffset, width, height;
+        SDL_Rect sourceRect;
+        SDL_Rect destinationRect;
         SDL_Texture *texture;
         ~Sprite() {SDL_DestroyTexture(texture);};
 };

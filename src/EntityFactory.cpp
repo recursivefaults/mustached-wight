@@ -2,22 +2,26 @@
 #include "Components.h"
 
 Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
-    Entity g;
-    Position p;
-    p.x = 100;
-    p.y = 100;
-    Velocity v;
+    Entity *g = new Entity();
 
-    Sprite s;
-    s.texture = helper.loadNamedTexture("guy.png", graphics);
-    s.width = 32;
-    s.height = 20;
-    s.xOffset = 0;
-    s.yOffset = 60;
+    Position *p = new Position();
+    p->x = 100;
+    p->y = 100;
+    Velocity *v = new Velocity();
 
-    world.positions.assign(g.getId(), p);
-    world.velocities.assign(g.getId(), v);
-    world.sprites.assign(g.getId(), s);
+    Sprite *s = new Sprite();
+    s->texture = helper.loadNamedTexture("guy.png", graphics);
+    s->sourceRect.x = 0;
+    s->sourceRect.y = 60;
+    s->sourceRect.w = 32;
+    s->sourceRect.h = 20;
+    s->destinationRect.w = 32;
+    s->destinationRect.h = 20;
 
-    return g;
+    world.positions[g->getId()] =  p;
+    world.velocities[g->getId()] =  v;
+    world.sprites[g->getId()] =  s;
+    world.entities[g->getId()] =  g;
+
+    return *g;
 }

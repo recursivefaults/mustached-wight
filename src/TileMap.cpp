@@ -1,5 +1,4 @@
 #include "TileMap.h"
-#include <iostream>
 
 namespace 
 {
@@ -52,7 +51,6 @@ TileMap::TileMap(Graphics &graphics)
             d.yOffset = kTileSize * i;
             
             idData[counter++] = d;
-            std::cout << "Set id: " << counter << std::endl;
         }
     }
 }
