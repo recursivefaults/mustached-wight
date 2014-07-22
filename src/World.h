@@ -10,6 +10,7 @@ class World
 {
     public:
         std::map<int, Entity *>   entities;
+        std::map<int, PlayerInput *> playerInputs;
         std::map<int, Sprite *>   sprites;
         std::map<int, Position *> positions;
         std::map<int, Velocity *> velocities;

@@ -3,9 +3,25 @@
 
 #include "zombie_walk.h"
 
+enum class PlayerActions
+{
+    moveLeft,
+    moveRight,
+    duck,
+    jump,
+    shoot,
+    loot,
+    burn
+};
+
 struct Position
 {
     int x, y;
+};
+
+
+struct PlayerInput {
+    std::map<SDL_Keycode, PlayerActions> keyMap;
 };
 
 struct Velocity

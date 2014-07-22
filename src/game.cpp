@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Game.h"
 #include "TileMap.h"
+#include "systems/SystemFactory.h"
 
 #include "EntityFactory.h"
 
@@ -10,12 +11,17 @@ Game::~Game() {
 
 
 Game::Game() {
+    delete(systemList);
 }
 
 void Game::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
         std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
     }
+
+    systemList = SystemFactory().createSystems();
+
+
     graphics = Graphics();
     graphics.clearRenderer();
     isRunning = true;
@@ -31,11 +37,12 @@ void Game::mainLoop() {
     while(isRunning) {
         int current = SDL_GetTicks();
         const int elapsedTime = current - previousTimeMs;
-        processInput();
-
         graphics.clearRenderer();
-        map.render(graphics);
+        // Run through Systems
+        processInput();
         update(elapsedTime);
+
+        map.render(graphics);
 
         render();
 
@@ -49,9 +56,9 @@ void Game::mainLoop() {
 
 
 void Game::update(const int deltaInMs) {
-    //for(auto *entity : entities) {
-    //    entity->update(deltaInMs, graphics, inputState);
-    //}
+    for(auto system : *systemList) {
+        system->update(deltaInMs, world);
+    }
 }
 
 void Game::render() {

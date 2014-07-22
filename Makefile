@@ -9,7 +9,7 @@ EXE = zombie
 OBJECTS = 
 
 all: 
-	$(CXX) $(CXXFLAGS) src/*.cpp $(LDFLAGS) -o $(EXE)
+	$(CXX) $(CXXFLAGS) src/*.cpp src/systems/*.cpp $(LDFLAGS) -o $(EXE)
 
 
 clean:

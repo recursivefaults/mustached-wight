@@ -5,6 +5,7 @@
 #include "zombie_walk.h"
 
 #include "graphics.h"
+#include "systems/System.h"
 #include "World.h"
 #include "Entity.h"
 #include "input_state.h"
@@ -26,6 +27,7 @@ class Game
         void processInput();
     private:
         bool isRunning;
+        std::vector<System *> *systemList;
         Graphics graphics;
         InputState inputState;
         World world;
