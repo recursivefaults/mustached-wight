@@ -75,6 +75,7 @@ OBJECTS := \
 	$(OBJDIR)/PhysicsSystem.o \
 	$(OBJDIR)/PlayerInputSystem.o \
 	$(OBJDIR)/SystemFactory.o \
+	$(OBJDIR)/Map.o \
 
 RESOURCES := \
 
@@ -164,6 +165,9 @@ $(OBJDIR)/PlayerInputSystem.o: src/systems/PlayerInputSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/SystemFactory.o: src/systems/SystemFactory.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
+$(OBJDIR)/Map.o: src/tiles/Map.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 

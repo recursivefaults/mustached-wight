@@ -14,10 +14,10 @@ class AssetHelper {
          * It does not maintain ownership of the pointer created.
          **/
         SDL_Texture *loadNamedTexture(const std::string &fileName, Graphics &graphics);
+        std::string fullAssetPathForFile(const std::string &fileName);
 
     private:
 
-        std::string fullAssetPathForFile(const std::string &fileName);
 };
 
 #endif
