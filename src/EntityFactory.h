@@ -4,7 +4,6 @@
 #include "Entity.h"
 #include "graphics.h"
 #include "World.h"
-#include "asset_helper.h"
 
 class EntityFactory
 {
@@ -12,7 +11,6 @@ class EntityFactory
         Entity createGuy(World &world, Graphics &grahpics);
     protected:
     private:
-        AssetHelper helper;
 };
 
 #endif

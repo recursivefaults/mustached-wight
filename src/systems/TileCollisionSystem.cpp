@@ -38,7 +38,6 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
         //Player has a velocity need to see if it hits the map
         bool hit = foreGround->data[mapIndex] != 0;
 
-        std::cout << "Player is hitting the ground: " << hit << std::endl;
 
 
 

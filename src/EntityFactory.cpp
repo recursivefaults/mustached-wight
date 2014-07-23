@@ -7,16 +7,21 @@ Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
     Position *p = new Position();
     p->x = 100;
     p->y = 100;
+
     Velocity *v = new Velocity();
 
-    Sprite *s = new Sprite();
-    s->texture = helper.loadNamedTexture("guy.png", graphics);
-    s->sourceRect.x = 0;
-    s->sourceRect.y = 60;
-    s->sourceRect.w = 32;
-    s->sourceRect.h = 20;
-    s->destinationRect.w = 32;
-    s->destinationRect.h = 20;
+    Rendered *rendered = new Rendered();
+    rendered->spriteName = "playerStandLeft";
+    rendered->w = 32;
+    rendered->h = 20;
+
+    //Create the corresponding sprite
+    SDL_Rect start;
+    start.x = 0;
+    start.y = 60;
+    start.w = rendered->w;
+    start.h = rendered->h;
+    world.manager.addNamedSprite("playerStandLeft", "guy.png", 0, start);
 
     PlayerInput *i = new PlayerInput();
     i->keyMap = {{SDL_SCANCODE_W, PlayerActions::jump}, {SDL_SCANCODE_A, PlayerActions::moveLeft}, {SDL_SCANCODE_D, PlayerActions::moveRight}};
@@ -25,18 +30,20 @@ Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
     AABB box;
     box.minX = p->x + 2;
     box.minY = p->y + 2;
-    box.maxX = p->x + s->destinationRect.w - 2;
-    box.maxY = p->y + s->destinationRect.h - 2;
+    box.maxX = p->x + rendered->w - 2;
+    box.maxY = p->y + rendered->h - 2;
     collidable->boxes.push_back(box);
 
 
-    world.playerInputs[g->getId()] = i;
-    world.positions[g->getId()] =  p;
-    world.velocities[g->getId()] =  v;
-    world.sprites[g->getId()] =  s;
-    world.entities[g->getId()] =  g;
-    world.tileMapCollisions[g->getId()] = new TileMapCollision();
-    world.collidables[g->getId()] = collidable;
+    int id = g->getId();
+
+    world.playerInputs[id] = i;
+    world.positions[id] =  p;
+    world.velocities[id] =  v;
+    world.renders[id] = rendered;
+    world.entities[id] =  g;
+    world.tileMapCollisions[id] = new TileMapCollision();
+    world.collidables[id] = collidable;
 
     return *g;
 }

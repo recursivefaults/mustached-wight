@@ -1,17 +1,13 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
+#include "Texture.h"
 #include "../zombie_walk.h"
 
-class Sprite
+struct Sprite
 {
-    public:
-        Sprite(SDL_Texture *tex) : texture(tex) {};
-        ~Sprite() {SDL_DestroyTexture(texture); };
-        SDL_Texture *getTexture() {return texture;};
-    protected:
-    private:
-        SDL_Texture *texture;
+    int numFrames;
+    SDL_Rect sourceRect;
+    Texture *texture;
 };
-
 #endif

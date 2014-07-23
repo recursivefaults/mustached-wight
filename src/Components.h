@@ -49,13 +49,11 @@ struct Velocity
     float velX, velY;
 };
 
-class Sprite
+struct Rendered
 {
-    public:
-        SDL_Rect sourceRect;
-        SDL_Rect destinationRect;
-        SDL_Texture *texture;
-        ~Sprite() {SDL_DestroyTexture(texture);};
+    std::string spriteName;
+    int w, h;
+
 };
 
 #endif

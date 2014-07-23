@@ -1,19 +1,16 @@
 #include "SpriteManager.h"
-#include "../asset_helper.h"
 
-Sprite *SpriteManager::getSpriteForName(const std::string &name)
+void SpriteManager::addNamedSprite(const std::string spriteName, const std::string textureName, int numFrames, SDL_Rect startDimensions) 
 {
-    std::map<std::string, Sprite>::iterator finder = _spriteIndex.find(name);
-    if(finder == _spriteIndex.end())
-    {
-        loadSpriteWithName(name);
-    }
-    return &_spriteIndex.at(name);
-    
+    Sprite s;
+    s.numFrames = numFrames;
+    s.sourceRect = startDimensions;
+    s.texture = manager->getTextureForName(textureName);
+
+    _spriteIndex.insert(std::pair<std::string, Sprite>(spriteName, s));
 }
-void SpriteManager::loadSpriteWithName(const std::string &name)
+Sprite *SpriteManager::getNamedSprite(const std::string spriteName)
 {
-    AssetHelper helper;
-    Sprite s(helper.loadNamedTexture(name, *_graphics));
-    _spriteIndex.insert(std::pair<std::string, Sprite>(name, s));
+    std::map<std::string, Sprite>::iterator finder = _spriteIndex.find(spriteName);
+    return &finder->second;
 }

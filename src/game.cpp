@@ -4,6 +4,7 @@
 #include "systems/SystemFactory.h"
 
 #include "EntityFactory.h"
+#include "assets/TextureManager.h"
 
 Game::~Game() {
     SDL_Quit();
@@ -26,8 +27,13 @@ void Game::init() {
     graphics.clearRenderer();
     isRunning = true;
 
+    TextureManager *manager = new TextureManager(graphics);
+    manager->loadTextureWithName("guy.png");
+    world.manager.setTextureManager(manager);
+
     EntityFactory factory;
     Entity guy = factory.createGuy(world, graphics);
+
 }
 
 void Game::mainLoop() {
@@ -63,20 +69,29 @@ void Game::update(const int deltaInMs) {
 }
 
 void Game::render() {
-    Sprite *s;
+    Rendered *render;
     Position *p;
-    for(auto kv = world.sprites.begin(); kv != world.sprites.end(); kv++) {
+    Sprite *s;
+    SDL_Rect destRect;
+    for(auto kv = world.renders.begin(); kv != world.renders.end(); kv++) {
         std::map<int, Position *>::iterator pv = world.positions.find(kv->first);
         if(pv == world.positions.end()) {
             continue;
         }
-        s = kv->second;
+        render = kv->second;
         p = pv->second;
-        s->destinationRect.x = p->x;
-        s->destinationRect.y = p->y;
+        destRect.x = p->x;
+        destRect.y = p->y; 
+        destRect.w = render->w;
+        destRect.h = render->h;
+
+
+        s = world.manager.getNamedSprite(render->spriteName);
+        SDL_assert(s->texture->getTexture() != nullptr);
         
+
         //We have the sprite and the position, RENDER
-        graphics.drawTexture(s->texture, &s->destinationRect, &s->sourceRect);
+        graphics.drawTexture(s->texture->getTexture(), &destRect, &s->sourceRect);
     }
     
     graphics.render();
