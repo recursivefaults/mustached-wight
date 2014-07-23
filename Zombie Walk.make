@@ -24,9 +24,9 @@ ifeq ($(config),debug)
   TARGETDIR  = .
   TARGET     = $(TARGETDIR)/Zombie\ Walk
   DEFINES   += -DDEBUG
-  INCLUDES  += -I/usr/local/include
+  INCLUDES  += -I/usr/local/include -Ilib
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -std=c++11 -Wc++11-extensions
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -g -Wall -std=c++11
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -L/usr/local/lib
   LIBS      += -lSDL2 -lSDL2_image
@@ -46,9 +46,9 @@ ifeq ($(config),release)
   TARGETDIR  = .
   TARGET     = $(TARGETDIR)/Zombie\ Walk
   DEFINES   += -DNDEBUG
-  INCLUDES  += -I/usr/local/include
+  INCLUDES  += -I/usr/local/include -Ilib
   CPPFLAGS  += -MMD -MP $(DEFINES) $(INCLUDES)
-  CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -Wall -std=c++11 -Wc++11-extensions
+  CFLAGS    += $(CPPFLAGS) $(ARCH) -O2 -Wall -std=c++11
   CXXFLAGS  += $(CFLAGS) 
   LDFLAGS   += -Wl,-x -L/usr/local/lib
   LIBS      += -lSDL2 -lSDL2_image
@@ -64,6 +64,7 @@ ifeq ($(config),release)
 endif
 
 OBJECTS := \
+	$(OBJDIR)/jsoncpp.o \
 	$(OBJDIR)/asset_helper.o \
 	$(OBJDIR)/EntityFactory.o \
 	$(OBJDIR)/game.o \
@@ -132,6 +133,9 @@ $(GCH): $(PCH)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 endif
 
+$(OBJDIR)/jsoncpp.o: lib/jsoncpp.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/asset_helper.o: src/asset_helper.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<

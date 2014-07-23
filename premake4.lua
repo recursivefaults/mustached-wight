@@ -9,7 +9,7 @@ solution "Zombie Walk"
       files { "**.h", "**.cpp" }
       links {"SDL2", "SDL2_image"}
       libdirs {"/usr/local/lib"}
-      includedirs {"/usr/local/include"}
+      includedirs {"/usr/local/include", "lib"}
       buildoptions {"-Wall", "-std=c++11" }
  
       configuration "Debug"
