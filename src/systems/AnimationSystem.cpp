@@ -21,22 +21,17 @@ void AnimationSystem::update(int elapsedTimeMS, World &world)
 
         animation->elapsed += elapsedTimeMS;
 
-        std::cout << "Elapsed: " << animation->elapsed << "\tTick: " << tick << std::endl;
 
         if(animation->elapsed > tick)
         {
-            animation->currentFrame++;
+            rendered->currentFrame++;
             animation->elapsed = 0;
-            std::cout << "Tick" << std::endl;
         }
 
         //Reset the current animation if we've gone over
-        if(animation->currentFrame > s->numFrames || s->numFrames == 0)
+        if(rendered->currentFrame >= s->numFrames || s->numFrames == 0)
         {
-            animation->currentFrame = 0;
+            rendered->currentFrame = 0;
         }
-
-        //Update the sprite location
-        s->sourceRect.x = animation->currentFrame * s->sourceRect.w;
     }
 }

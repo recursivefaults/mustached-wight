@@ -21,13 +21,13 @@ Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
     start.y = 60;
     start.w = rendered->w;
     start.h = rendered->h;
-    world.manager.addNamedSprite("playerStandLeft", "guy.png", 0, start);
+    world.manager.addNamedSprite("playerStandLeft", "guy.png", 1, start);
 
     start.y = 160;
-    world.manager.addNamedSprite("playerWalkLeft", "guy.png", 5, start, 15);
+    world.manager.addNamedSprite("playerWalkLeft", "guy.png", 6, start, 15);
 
     start.y = 180;
-    world.manager.addNamedSprite("playerWalkRight", "guy.png", 5, start, 15);
+    world.manager.addNamedSprite("playerWalkRight", "guy.png", 6, start, 15);
 
     PlayerInput *i = new PlayerInput();
     i->keyMap = {{SDL_SCANCODE_W, PlayerActions::jump}, {SDL_SCANCODE_A, PlayerActions::moveLeft}, {SDL_SCANCODE_D, PlayerActions::moveRight}};

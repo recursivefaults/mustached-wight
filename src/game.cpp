@@ -90,7 +90,7 @@ void Game::render() {
         SDL_assert(s->texture->getTexture() != nullptr);
 
         //We have the sprite and the position, RENDER
-        graphics.drawTexture(s->texture->getTexture(), &destRect, &s->sourceRect);
+        graphics.drawTexture(s->texture->getTexture(), &destRect, &s->frames[render->currentFrame]);
     }
     
     graphics.render();

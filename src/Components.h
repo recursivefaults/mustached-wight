@@ -52,12 +52,13 @@ struct Velocity
 struct Animation
 {
     int elapsed = 0;
-    int currentFrame = 0;
+    bool isLooping = false;
 };
 
 struct Rendered
 {
     std::string spriteName;
+    int currentFrame = 0;
     int w, h;
 
 };
