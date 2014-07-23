@@ -1,5 +1,7 @@
 #include "PhysicsSystem.h"
 #include "../Components.h"
+#include "../zombie_walk.h"
+
 
 void PhysicsSystem::update(int elapsedTimeMs, World &world)
 {
@@ -10,7 +12,11 @@ void PhysicsSystem::update(int elapsedTimeMs, World &world)
         Position *p = world.positions[ev.first];
 
         p->x += (v->velX * elapsedTimeMs);
-        p->y += (v->velY * elapsedTimeMs);
+        p->y += (v->velY + ZombieWalk::kVelocityDown * elapsedTimeMs);
+        if(p->y > ZombieWalk::kMagicFloor) {
+            //Roll back
+            p->y = ZombieWalk::kMagicFloor;
+        }
     };
 
 }

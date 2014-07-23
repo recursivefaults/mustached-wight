@@ -16,6 +16,7 @@ class World
         std::map<int, Rendered *>   renders;
         std::map<int, Animation *>   animations;
         std::map<int, Position *> positions;
+        std::map<int, Jump *> jumps;
         std::map<int, Velocity *> velocities;
         std::map<int, TileMapCollision *> tileMapCollisions;
         std::map<int, Collidable *> collidables;

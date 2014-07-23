@@ -44,9 +44,17 @@ struct PlayerInput {
     std::map<SDL_Keycode, PlayerActions> keyMap;
 };
 
+struct Jump
+{
+    float jumpVelocity = -0.380;
+    int jumpDuration = 0;
+    bool isJumping = false;
+    int maxJumpTime = 525;
+};
+
 struct Velocity
 {
-    float velX, velY;
+    float velX, velY = 0.0;
 };
 
 struct Animation

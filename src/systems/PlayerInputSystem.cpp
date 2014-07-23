@@ -9,6 +9,7 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
     for (auto ev: world.entities) {
         Velocity *v = world.velocities[ev.first];
         PlayerInput *input = world.playerInputs[ev.first];
+        Jump *j = world.jumps[ev.first];
         std::string animationName;
         SDL_assert(v != nullptr);
         SDL_assert(input != nullptr);
@@ -29,6 +30,13 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
                         animationName = "playerWalkRight";
                         dirty = true;
                         break;
+                    case PlayerActions::jump:
+                        if(j != nullptr)
+                        {
+                            j->isJumping = true;
+                        }
+                        dirty = true;
+                        break;
                     default:
                         break;
                 }
@@ -47,7 +55,6 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
             render->currentFrame = 0;
             world.animations.erase(ev.first);
             v->velX = 0;
-            v->velY = 0;
         }
         if(animationName.length() > 0)
         {

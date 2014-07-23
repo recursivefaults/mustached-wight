@@ -52,6 +52,7 @@ Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
     world.renders[id] = rendered;
     world.entities[id] =  g;
     world.tileMapCollisions[id] = new TileMapCollision();
+    world.jumps[id] = new Jump();
     world.collidables[id] = collidable;
 
     return *g;
