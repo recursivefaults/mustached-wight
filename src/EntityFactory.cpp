@@ -23,6 +23,9 @@ Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
     start.h = rendered->h;
     world.manager.addNamedSprite("playerStandLeft", "guy.png", 1, start);
 
+    start.y = 40;
+    world.manager.addNamedSprite("playerStandRight", "guy.png", 1, start);
+
     start.y = 160;
     world.manager.addNamedSprite("playerWalkLeft", "guy.png", 6, start, 15);
 

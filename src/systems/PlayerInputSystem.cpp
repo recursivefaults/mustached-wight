@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace {
-    float kHorizontalVelocity = 0.5;
+    float kHorizontalVelocity = 0.325;
 }
 
 void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
@@ -13,9 +13,6 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
         SDL_assert(v != nullptr);
         SDL_assert(input != nullptr);
         
-        //Default state 
-        v->velX = 0.0;
-        v->velY = 0.0;
         bool dirty = false;
         for(auto im : input->keyMap) {
             if(keyboardState[im.first])
@@ -40,10 +37,17 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
         Rendered *render = world.renders[ev.first];
         if(dirty == false)
         {
+            if(v->velX > 0.0) {
+                render->spriteName = "playerStandLeft";
+            } 
+            if(v->velX < 0.0) {
+                render->spriteName = "playerStandRight";
+            }
             //No keys touched, default to standing
-            render->spriteName = "playerStandLeft";
             render->currentFrame = 0;
             world.animations.erase(ev.first);
+            v->velX = 0;
+            v->velY = 0;
         }
         if(animationName.length() > 0)
         {
