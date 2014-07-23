@@ -10,6 +10,7 @@
 struct MapIndex {
     int xOffset;
     int yOffset;
+    bool isSolid;
 };
 
 class TileMap
@@ -20,6 +21,7 @@ class TileMap
         void render(Graphics &graphics);
     protected:
     private:
+        bool solidTest(int tileId);
         SDL_Texture *texture;
         AssetHelper assetHelper;
         std::map<int, MapIndex> idData;

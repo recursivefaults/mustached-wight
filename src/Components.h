@@ -14,6 +14,8 @@ enum class PlayerActions
     burn
 };
 
+struct TileMapCollision {};
+
 struct Position
 {
     int x, y;
