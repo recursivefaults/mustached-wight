@@ -13,6 +13,7 @@ class TileMap
     public:
         TileMap(Graphics &graphics);
         void render(Graphics &graphics);
+        Map *getMap() {return &currentMap;};
     protected:
     private:
         bool solidTest(int tileId);

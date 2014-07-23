@@ -33,6 +33,7 @@ void Game::init() {
 void Game::mainLoop() {
 
     TileMap map = TileMap(graphics);
+    world.map = map.getMap();
     int previousTimeMs = SDL_GetTicks();
     while(isRunning) {
         int current = SDL_GetTicks();

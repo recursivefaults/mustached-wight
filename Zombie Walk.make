@@ -72,9 +72,11 @@ OBJECTS := \
 	$(OBJDIR)/input_state.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/TileMap.o \
+	$(OBJDIR)/SpriteManager.o \
 	$(OBJDIR)/PhysicsSystem.o \
 	$(OBJDIR)/PlayerInputSystem.o \
 	$(OBJDIR)/SystemFactory.o \
+	$(OBJDIR)/TileCollisionSystem.o \
 	$(OBJDIR)/Map.o \
 
 RESOURCES := \
@@ -158,6 +160,9 @@ $(OBJDIR)/main.o: src/main.cpp
 $(OBJDIR)/TileMap.o: src/TileMap.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
+$(OBJDIR)/SpriteManager.o: src/assets/SpriteManager.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/PhysicsSystem.o: src/systems/PhysicsSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
@@ -165,6 +170,9 @@ $(OBJDIR)/PlayerInputSystem.o: src/systems/PlayerInputSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/SystemFactory.o: src/systems/SystemFactory.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
+$(OBJDIR)/TileCollisionSystem.o: src/systems/TileCollisionSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/Map.o: src/tiles/Map.cpp

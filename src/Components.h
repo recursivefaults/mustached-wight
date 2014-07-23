@@ -2,6 +2,8 @@
 #define COMPONENTS_H
 
 #include "zombie_walk.h"
+#include <vector>
+#include <map>
 
 enum class PlayerActions
 {
@@ -15,6 +17,22 @@ enum class PlayerActions
 };
 
 struct TileMapCollision {};
+
+
+struct AABB
+{
+    AABB() {};
+    AABB(int mx, int my, int Mx, int My) : minX(mx),
+        minY(my),
+        maxX(Mx),
+        maxY(My) {};
+    int minX, minY, maxX, maxY;
+};
+
+struct Collidable
+{
+    std::vector<AABB> boxes;
+};
 
 struct Position
 {
