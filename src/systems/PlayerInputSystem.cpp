@@ -16,6 +16,7 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
         //Default state 
         v->velX = 0.0;
         v->velY = 0.0;
+        bool dirty = false;
         for(auto im : input->keyMap) {
             if(keyboardState[im.first])
             {
@@ -24,18 +25,25 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
                     case PlayerActions::moveLeft:
                         v->velX = -kHorizontalVelocity;
                         animationName = "playerWalkLeft";
+                        dirty = true;
                         break;
                     case PlayerActions::moveRight:
                         v->velX = kHorizontalVelocity;
                         animationName = "playerWalkRight";
+                        dirty = true;
                         break;
                     default:
-                        //Remove animation
-                        std::cout << "DELETING new animation for: " << ev.first << std::endl;
-                        //world.animations.erase(ev.first);
                         break;
                 }
             }
+        }
+        Rendered *render = world.renders[ev.first];
+        if(dirty == false)
+        {
+            //No keys touched, default to standing
+            render->spriteName = "playerStandLeft";
+            render->currentFrame = 0;
+            world.animations.erase(ev.first);
         }
         if(animationName.length() > 0)
         {
@@ -45,7 +53,6 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
                 a = new Animation();
                 world.animations[ev.first] = a;
             }
-            Rendered *render = world.renders[ev.first];
             render->spriteName = animationName;
         }
     }
