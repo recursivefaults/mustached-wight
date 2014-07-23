@@ -88,7 +88,6 @@ void Game::render() {
 
         s = world.manager.getNamedSprite(render->spriteName);
         SDL_assert(s->texture->getTexture() != nullptr);
-        
 
         //We have the sprite and the position, RENDER
         graphics.drawTexture(s->texture->getTexture(), &destRect, &s->sourceRect);

@@ -49,6 +49,12 @@ struct Velocity
     float velX, velY;
 };
 
+struct Animation
+{
+    int elapsed = 0;
+    int currentFrame = 0;
+};
+
 struct Rendered
 {
     std::string spriteName;

@@ -74,6 +74,7 @@ OBJECTS := \
 	$(OBJDIR)/TileMap.o \
 	$(OBJDIR)/SpriteManager.o \
 	$(OBJDIR)/TextureManager.o \
+	$(OBJDIR)/AnimationSystem.o \
 	$(OBJDIR)/PhysicsSystem.o \
 	$(OBJDIR)/PlayerInputSystem.o \
 	$(OBJDIR)/SystemFactory.o \
@@ -165,6 +166,9 @@ $(OBJDIR)/SpriteManager.o: src/assets/SpriteManager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/TextureManager.o: src/assets/TextureManager.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
+$(OBJDIR)/AnimationSystem.o: src/systems/AnimationSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/PhysicsSystem.o: src/systems/PhysicsSystem.cpp

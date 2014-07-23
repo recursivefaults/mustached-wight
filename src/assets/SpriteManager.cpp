@@ -1,9 +1,10 @@
 #include "SpriteManager.h"
 
-void SpriteManager::addNamedSprite(const std::string spriteName, const std::string textureName, int numFrames, SDL_Rect startDimensions) 
+void SpriteManager::addNamedSprite(const std::string spriteName, const std::string textureName, int numFrames, SDL_Rect startDimensions, int fps) 
 {
     Sprite s;
     s.numFrames = numFrames;
+    s.fps = fps;
     s.sourceRect = startDimensions;
     s.texture = manager->getTextureForName(textureName);
 

@@ -7,6 +7,7 @@
 struct Sprite
 {
     int numFrames;
+    int fps = 0;
     SDL_Rect sourceRect;
     Texture *texture;
 };
