@@ -80,6 +80,7 @@ OBJECTS := \
 	$(OBJDIR)/PlayerInputSystem.o \
 	$(OBJDIR)/SystemFactory.o \
 	$(OBJDIR)/TileCollisionSystem.o \
+	$(OBJDIR)/WalkSystem.o \
 	$(OBJDIR)/Map.o \
 
 RESOURCES := \
@@ -185,6 +186,9 @@ $(OBJDIR)/SystemFactory.o: src/systems/SystemFactory.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/TileCollisionSystem.o: src/systems/TileCollisionSystem.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
+$(OBJDIR)/WalkSystem.o: src/systems/WalkSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/Map.o: src/tiles/Map.cpp

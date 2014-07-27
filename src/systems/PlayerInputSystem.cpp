@@ -1,43 +1,39 @@
 #include "PlayerInputSystem.h"
 #include <iostream>
 
-namespace {
-    float kHorizontalVelocity = 0.325;
-}
 
 void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
     for (auto ev: world.entities) {
         Velocity *v = world.velocities[ev.first];
+        PlayerInputMap *inputMap = world.playerInputMaps[ev.first];
         PlayerInput *input = world.playerInputs[ev.first];
         Jump *j = world.jumps[ev.first];
         std::string animationName;
         SDL_assert(v != nullptr);
+        SDL_assert(inputMap != nullptr);
         SDL_assert(input != nullptr);
         
         bool dirty = false;
-        for(auto im : input->keyMap) {
+        input->input.clear();
+        for(auto im : inputMap->keyMap) {
             if(keyboardState[im.first])
             {
                 switch(im.second)
                 {
                     case PlayerActions::moveLeft:
-                        v->velX = -kHorizontalVelocity;
-                        animationName = "playerWalkLeft";
+                        input->input[PlayerActions::moveLeft] = true;
                         dirty = true;
                         break;
                     case PlayerActions::moveRight:
-                        v->velX = kHorizontalVelocity;
-                        animationName = "playerWalkRight";
+                        input->input[PlayerActions::moveRight] = true;
                         dirty = true;
                         break;
                     case PlayerActions::jump:
-                        if(j != nullptr)
-                        {
-                            j->isJumping = true;
-                        }
+                        input->input[PlayerActions::jump] = true;
                         dirty = true;
                         break;
                     default:
+                        dirty = false;
                         break;
                 }
             }
@@ -55,16 +51,6 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
             render->currentFrame = 0;
             world.animations.erase(ev.first);
             v->velX = 0;
-        }
-        if(animationName.length() > 0)
-        {
-            Animation *a = world.animations[ev.first];
-            if(a == nullptr)
-            {
-                a = new Animation();
-                world.animations[ev.first] = a;
-            }
-            render->spriteName = animationName;
         }
     }
 }

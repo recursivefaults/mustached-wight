@@ -40,8 +40,13 @@ struct Position
 };
 
 
-struct PlayerInput {
+struct PlayerInputMap {
     std::map<SDL_Keycode, PlayerActions> keyMap;
+};
+
+struct PlayerInput
+{
+    std::map<PlayerActions, bool> input;
 };
 
 struct Jump
@@ -75,7 +80,6 @@ struct Rendered
     std::string spriteName;
     int currentFrame = 0;
     int w, h;
-
 };
 
 #endif

@@ -18,7 +18,7 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
         Position *p = world.positions[ev.first];
 
         //If you're on the ground, jump
-        if(p->y = ZombieWalk::kMagicFloor) {
+        if(p->y == ZombieWalk::kMagicFloor) {
 
         }
         //If you're not on the ground and you have more time, keep jumping

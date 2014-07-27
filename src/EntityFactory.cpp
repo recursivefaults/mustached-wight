@@ -32,7 +32,7 @@ Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
     start.y = 180;
     world.manager.addNamedSprite("playerWalkRight", "guy.png", 6, start, 15);
 
-    PlayerInput *i = new PlayerInput();
+    PlayerInputMap *i = new PlayerInputMap();
     i->keyMap = {{SDL_SCANCODE_W, PlayerActions::jump}, {SDL_SCANCODE_A, PlayerActions::moveLeft}, {SDL_SCANCODE_D, PlayerActions::moveRight}};
 
     Collidable *collidable = new Collidable();
@@ -46,13 +46,16 @@ Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
 
     int id = g->getId();
 
-    world.playerInputs[id] = i;
+    world.playerInputMaps[id] = i;
+    world.playerInputs[id] = new PlayerInput();
     world.positions[id] =  p;
     world.velocities[id] =  v;
     world.renders[id] = rendered;
     world.entities[id] =  g;
     world.tileMapCollisions[id] = new TileMapCollision();
     world.jumps[id] = new Jump();
+    world.walkRights[id] = new WalkRight();
+    world.walkLefts[id] = new WalkLeft();
     world.collidables[id] = collidable;
 
     return *g;
