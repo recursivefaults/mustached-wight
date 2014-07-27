@@ -46,11 +46,18 @@ struct PlayerInput {
 
 struct Jump
 {
-    float jumpVelocity = -0.380;
+    float jumpVelocity = -0.350;
     int jumpDuration = 0;
     bool isJumping = false;
     int maxJumpTime = 525;
 };
+
+struct WalkRight { };
+struct WalkLeft { };
+struct Duck { };
+struct Shoot { };
+struct Loot { };
+struct Burn { };
 
 struct Velocity
 {
