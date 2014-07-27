@@ -33,7 +33,8 @@ void TileMap::render(Graphics &graphics)
         layerH = layer->heightInTiles;
         for(int i = 0; i < layerW * layerH; ++i)
         {
-            int id = layer->data[i];
+            TileData *tile = layer->data[i];
+            int id = tile->tileId;
             if(id > 0) {
                 --id;
             } else {
@@ -43,11 +44,8 @@ void TileMap::render(Graphics &graphics)
             columnInSpriteSheet = id % 8;
             rowInSpriteSheet = id / 8;
 
-            column = i % layerW;
-            row = i / layerW;
-
-            tileLocation.x = column * tileLocation.w;
-            tileLocation.y = row * tileLocation.h;
+            tileLocation.x = tile->x;
+            tileLocation.y = tile->y;
             sourceLocation.x = columnInSpriteSheet * tileLocation.w;
             sourceLocation.y = rowInSpriteSheet * tileLocation.h;
 

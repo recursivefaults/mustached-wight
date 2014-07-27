@@ -2,6 +2,7 @@
 #include "json/json.h"
 #include "../asset_helper.h"
 #include <fstream>
+#include <iostream>
 
 Map::Map(const std::string mapName, Graphics &graphics)
 {
@@ -26,11 +27,17 @@ Map::Map(const std::string mapName, Graphics &graphics)
         l->widthInTiles = blob["width"].asInt();
         l->heightInTiles = blob["height"].asInt();
         l->priority = count++;
-        l->data = new int[l->widthInTiles * l->heightInTiles];
         int dataCounter = 0;
         for(auto id : blob["data"])
         {
-            l->data[dataCounter++] = id.asInt();
+            TileData *tile = new TileData();
+            tile->tileId = id.asInt();
+            tile->x = sprite->tileWidth * (dataCounter % l->widthInTiles);
+            tile->y = sprite->tileHeight * (dataCounter / l->widthInTiles);
+            tile->h = sprite->tileHeight;
+            tile->w = sprite->tileWidth;
+            l->data.push_back(tile);
+            dataCounter++;
         }
 
         layers.push_back(l);

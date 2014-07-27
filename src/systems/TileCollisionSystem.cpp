@@ -37,10 +37,6 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
 
         //Player has a velocity need to see if it hits the map
         bool hit = foreGround->data[mapIndex] != 0;
-
-
-
-
     }
 
 }

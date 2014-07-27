@@ -25,7 +25,6 @@ void WalkSystem::update(int elapsedTimeMS, World &world)
                 vel = ZombieWalk::kHorizontalVelocity;
                 render->spriteName = "playerWalkRight";
             }
-
         }
 
         if(left != nullptr)
@@ -34,7 +33,6 @@ void WalkSystem::update(int elapsedTimeMS, World &world)
             {
                 vel = -ZombieWalk::kHorizontalVelocity;
                 render->spriteName = "playerWalkLeft";
-
 
             }
         }
