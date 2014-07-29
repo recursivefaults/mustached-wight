@@ -14,6 +14,7 @@ class Map
     public:
         Map(const std::string mapName, Graphics &graphics);
         std::vector<Layer *> *getLayers() {return &layers;};
+        TileData* tileForPosition(int x, int y, int layerNumber = 0);
         TileSprite *sprite;
     protected:
     private:

@@ -10,6 +10,8 @@ class TileCollisionSystem : public System
         void update(int elapsedTimeMS, World &world);
     protected:
     private:
+        std::vector<AABB>* getUpdatedBoxes(Collidable *c, int deltaX, int deltaY);
+        bool didCollide(AABB &one, AABB &two);
 };
 
 #endif

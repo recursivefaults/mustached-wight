@@ -14,6 +14,7 @@ class TileMap
         TileMap(Graphics &graphics);
         void render(Graphics &graphics);
         Map *getMap() {return &currentMap;};
+        TileData* tileForPosition(int x, int y);
     protected:
     private:
         bool solidTest(int tileId);

@@ -3,6 +3,8 @@
 #include "../zombie_walk.h"
 
 
+#include <iostream>
+
 void PhysicsSystem::update(int elapsedTimeMs, World &world)
 {
     for(auto ev : world.entities)
@@ -13,10 +15,6 @@ void PhysicsSystem::update(int elapsedTimeMs, World &world)
 
         p->x += (v->velX * elapsedTimeMs);
         p->y += (v->velY + ZombieWalk::kVelocityDown) * elapsedTimeMs;
-        if(p->y > ZombieWalk::kMagicFloor) {
-            //Roll back
-            p->y = ZombieWalk::kMagicFloor;
-        }
     };
 
 }

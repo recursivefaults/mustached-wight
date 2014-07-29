@@ -2,6 +2,7 @@
 #include "json/json.h"
 #include "../asset_helper.h"
 #include <fstream>
+
 #include <iostream>
 
 Map::Map(const std::string mapName, Graphics &graphics)
@@ -43,5 +44,14 @@ Map::Map(const std::string mapName, Graphics &graphics)
         layers.push_back(l);
 
     }
+}
 
+TileData* Map::tileForPosition(int x, int y, int layerNumber)
+{
+    Layer *layer = layers[layerNumber];
+    //Convert x and y into tile offset
+    int column = x / sprite->tileWidth;
+    int row = y / sprite->tileHeight * layer->widthInTiles;
+
+    return layer->data[column + row];
 }

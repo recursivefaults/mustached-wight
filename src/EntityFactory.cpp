@@ -1,6 +1,8 @@
 #include "EntityFactory.h"
 #include "Components.h"
 
+#include <iostream>
+
 Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
     Entity *g = new Entity();
 
@@ -37,10 +39,12 @@ Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
 
     Collidable *collidable = new Collidable();
     AABB box;
-    box.minX = p->x + 2;
-    box.minY = p->y + 2;
-    box.maxX = p->x + rendered->w - 2;
-    box.maxY = p->y + rendered->h - 2;
+    //Relative to position
+    box.minX = 2;
+    box.minY = 2;
+    box.maxX = rendered->w - 2;
+    box.maxY = rendered->h - 2;
+    std::cout << "maxX: " << box.maxX << "\tminX: " << box.minX << std::endl;
     collidable->boxes.push_back(box);
 
 
