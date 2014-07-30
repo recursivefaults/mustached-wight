@@ -39,18 +39,18 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
         tiles.insert(data);
 
         //Three above
-        tiles.insert(world.map->tileForPosition(newX - tileWidth, newY - tileHeight, 2));
-        tiles.insert(world.map->tileForPosition(newX,             newY - tileHeight, 2));
-        tiles.insert(world.map->tileForPosition(newX + tileWidth, newY - tileHeight, 2));
+        //tiles.insert(world.map->tileForPosition(data->cx - tileWidth, data->cy - tileHeight, 2));
+        //tiles.insert(world.map->tileForPosition(data->cx,             data->cy - tileHeight, 2));
+        //tiles.insert(world.map->tileForPosition(data->cx + tileWidth, data->cy - tileHeight, 2));
 
         //Two around
-        tiles.insert(world.map->tileForPosition(newX - tileWidth, newY, 2));
-        tiles.insert(world.map->tileForPosition(newX + tileWidth, newY, 2));
+        //tiles.insert(world.map->tileForPosition(data->cx - tileWidth, data->cy, 2));
+        //tiles.insert(world.map->tileForPosition(data->cx + tileWidth, data->cy, 2));
         
         //Three below
-        tiles.insert(world.map->tileForPosition(newX - tileWidth, newY + tileHeight, 2));
-        tiles.insert(world.map->tileForPosition(newX,             newY + tileHeight, 2));
-        tiles.insert(world.map->tileForPosition(newX + tileWidth, newY + tileHeight, 2));
+        //tiles.insert(world.map->tileForPosition(data->cx - tileWidth, data->cy + tileHeight, 2));
+        //tiles.insert(world.map->tileForPosition(data->cx,             data->cy + tileHeight, 2));
+        //tiles.insert(world.map->tileForPosition(data->cx + tileWidth, data->cy + tileHeight, 2));
 
 
         for(auto tile : tiles)
@@ -59,62 +59,35 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
                 continue;
             if(tile->tileId == 0)
                 continue;
-            AABB tileBox;
-            tileBox.minX = tile->x;
-            tileBox.maxX = tile->x + tileWidth;
-            tileBox.minY = tile->y;
-            tileBox.maxY = tile->y + tileHeight;
+            AABB tileBox(tile->cx, tile->cy, tileWidth/2, tileHeight/2);
 
-            AABB player = collidable->boxes.front();
+            AABB &player = collidable->boxes.front();
 
-            player.minX += newX;
-            player.maxX += newX;
-            player.minY += newY;
-            player.maxY += newY;
+            SDL_assert(player.cx == p->x + 16);
+            SDL_assert(player.cy == p->y + 10);
 
-            if(didCollide(player, tileBox))
+            Vector2d collision(0, 0);
+
+            if(player.didSimpleCollide(tileBox, collision))
             {
                 if(deltaX > 0)
                 {
-                    p->x = tileBox.minX - (player.maxX - player.minX + 1);
-                    v->velX = 0;
-                }
-                if(deltaX < 0)
-                {
-                    p->x = tileBox.maxX + (player.maxX - player.minX + 1);
-                    v->velX = 0;
+                    p->x += collision._x;
+                    collidable->boxes.front().cx += collision._x;
                 }
                 if(deltaY > 0)
                 {
-                    p->y = tileBox.minY - (player.maxY - player.minY + 1);
-                    v->velY = 0;
+                    std::cout << "Adjusting p->y by : " << collision._y << std::endl;
+                    p->y += collision._y - player.rh;
+                    collidable->boxes.front().cy += collision._y - player.rh;
+                    v->velY = -ZombieWalk::kVelocityDown;
                 }
-                if(deltaY < 0)
-                {
-                    p->y = tileBox.maxY + (player.maxY - player.minY + 1);
-                    v->velY = 0;
-                }
+
             }
         }
 
     }
 
-}
-
-
-bool TileCollisionSystem::didCollide(AABB &one, AABB &two)
-{
-    if((two.minX > one.minX && two.minX < one.maxX) ||
-            (two.maxX > one.minX && two.maxX < one.maxX))
-    {
-        if((two.minY > one.minY && two.minY < one.maxY) ||
-                (two.maxY > one.minY && two.maxY < one.maxY))
-        {
-            std::cout << "Collide" << std::endl;
-            return true;
-        }
-    }
-    return false;
 }
 
 std::vector<AABB>* TileCollisionSystem::getUpdatedBoxes(Collidable *c, int deltaX, int deltaY)
@@ -125,29 +98,29 @@ std::vector<AABB>* TileCollisionSystem::getUpdatedBoxes(Collidable *c, int delta
             AABB updated = box;
             
             //Down
-            if(deltaY > 0)
-            {
-                updated.maxY = deltaY + box.maxY;
-            }
-
-            //Up
-            if(deltaY < 0)
-            {
-                updated.minY = deltaY + box.minY;
-            }
-
-            //Left
-            if(deltaX < 0)
-            {
-                updated.minX = deltaX + box.minX;
-            }
-
-            //Right
-            if(deltaX > 0)
-            {
-                updated.maxX = deltaX + box.maxX;
-            }
-            updatedBoxes->push_back(updated);
+//            if(deltaY > 0)
+//            {
+//                updated.maxY = deltaY + box.maxY;
+//            }
+//
+//            //Up
+//            if(deltaY < 0)
+//            {
+//                updated.minY = deltaY + box.minY;
+//            }
+//
+//            //Left
+//            if(deltaX < 0)
+//            {
+//                updated.minX = deltaX + box.minX;
+//            }
+//
+//            //Right
+//            if(deltaX > 0)
+//            {
+//                updated.maxX = deltaX + box.maxX;
+//            }
+//            updatedBoxes->push_back(updated);
         }
 
         return updatedBoxes;

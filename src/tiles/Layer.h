@@ -7,7 +7,8 @@
 struct TileData
 {
     int tileId;
-    int x, y, w, h;
+    int x, y, w, h, cx, cy;
+
 };
 
 struct Layer

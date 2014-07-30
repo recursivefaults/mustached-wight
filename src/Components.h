@@ -2,6 +2,7 @@
 #define COMPONENTS_H
 
 #include "zombie_walk.h"
+#include <string>
 #include <vector>
 #include <map>
 
@@ -18,16 +19,26 @@ enum class PlayerActions
 
 struct TileMapCollision {};
 
+struct Vector2d
+{
+    Vector2d(float x, float y): _x(x), _y(y) {};
+    float _x, _y;
+};
 
 struct AABB
 {
     AABB() {};
-    AABB(int mx, int my, int Mx, int My) : minX(mx),
-        minY(my),
-        maxX(Mx),
-        maxY(My) {};
-    int minX, minY, maxX, maxY;
+    AABB(int x, int y, int w, int h) : cx(x),
+        cy(y),
+        rw(w),
+        rh(h) {};
+    int cx, cy, rw, rh;
+
+    bool didSimpleCollide(AABB &other, Vector2d &collision);
+    bool didMinkowskiCollide(AABB &other);
+
 };
+
 
 struct Collidable
 {
@@ -77,7 +88,7 @@ struct Animation
 
 struct Rendered
 {
-    std::string spriteName;
+    std::string spriteName = "";
     int currentFrame = 0;
     int w, h;
 };

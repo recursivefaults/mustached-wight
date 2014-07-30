@@ -66,6 +66,7 @@ endif
 OBJECTS := \
 	$(OBJDIR)/jsoncpp.o \
 	$(OBJDIR)/asset_helper.o \
+	$(OBJDIR)/Components.o \
 	$(OBJDIR)/EntityFactory.o \
 	$(OBJDIR)/game.o \
 	$(OBJDIR)/graphics.o \
@@ -144,6 +145,9 @@ $(OBJDIR)/jsoncpp.o: lib/jsoncpp.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/asset_helper.o: src/asset_helper.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
+$(OBJDIR)/Components.o: src/Components.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/EntityFactory.o: src/EntityFactory.cpp

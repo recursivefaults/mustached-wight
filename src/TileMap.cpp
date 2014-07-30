@@ -1,7 +1,7 @@
 #include "TileMap.h"
 #include <iostream>
 
-TileMap::TileMap(Graphics &graphics) : currentMap("Map1.json", graphics)
+TileMap::TileMap(Graphics &graphics) : currentMap("test.json", graphics)
 {
 }
 

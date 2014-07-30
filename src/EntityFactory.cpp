@@ -38,13 +38,7 @@ Entity EntityFactory::createGuy(World &world, Graphics &graphics) {
     i->keyMap = {{SDL_SCANCODE_W, PlayerActions::jump}, {SDL_SCANCODE_A, PlayerActions::moveLeft}, {SDL_SCANCODE_D, PlayerActions::moveRight}};
 
     Collidable *collidable = new Collidable();
-    AABB box;
-    //Relative to position
-    box.minX = 2;
-    box.minY = 2;
-    box.maxX = rendered->w - 2;
-    box.maxY = rendered->h - 2;
-    std::cout << "maxX: " << box.maxX << "\tminX: " << box.minX << std::endl;
+    AABB box(p->x + rendered->w/2, p->y + rendered->h/2, rendered->w/2 - 2, rendered->h/2 - 2);
     collidable->boxes.push_back(box);
 
 
