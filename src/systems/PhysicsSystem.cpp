@@ -18,7 +18,18 @@ void PhysicsSystem::update(int elapsedTimeMs, World &world)
         }
 
         int newX = (v->velX * elapsedTimeMs);
-        int newY = (v->velY + ZombieWalk::kVelocityDown) * elapsedTimeMs;
+        int newY = (v->velY * elapsedTimeMs);
+
+        int newPX = p->x + newX;
+        int newPY = p->y + newY;
+        if(newPX < 0 || newPX > 640)
+        {
+            newX = 0;
+        }
+        if(newPY < 0 || newPY > 480)
+        {
+            newY = 0;
+        }
 
         p->x += newX;
         p->y += newY;

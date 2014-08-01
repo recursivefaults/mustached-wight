@@ -23,72 +23,95 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
          * 2. Check 9 tiles around AABB
          * 3. Adjust for collision X then Y
          */
-        int deltaX = elapsedTimeMS * v->velX;
-        int deltaY = elapsedTimeMS * (v->velY + ZombieWalk::kVelocityDown);
-        
-         
-        int newX = p->x;
-        int newY = p->y;
+
+        AABB &player = collidable->boxes.front();
+        int newX = player.cx;
+        int newY = player.cy;
 
         int tileWidth = world.map->sprite->tileWidth;
         int tileHeight = world.map->sprite->tileHeight;
 
-        std::set<TileData*> tiles;
+        TileData *myTile = world.map->tileForPosition(newX, newY, 2);
+        TileData *downTile = world.map->tileForPosition(myTile->cx, myTile->cy + tileHeight, 2);
 
-        TileData *data = world.map->tileForPosition(newX, newY, 2);
-        tiles.insert(data);
+        if(myTile == nullptr)
+        {
+            std::cout << "No tile at " << newX << ", " << newY << std::endl;
+            continue;
+        }
 
-        //Three above
-        //tiles.insert(world.map->tileForPosition(data->cx - tileWidth, data->cy - tileHeight, 2));
-        //tiles.insert(world.map->tileForPosition(data->cx,             data->cy - tileHeight, 2));
-        //tiles.insert(world.map->tileForPosition(data->cx + tileWidth, data->cy - tileHeight, 2));
+        std::vector<TileData *> broadPhase; 
 
-        //Two around
-        //tiles.insert(world.map->tileForPosition(data->cx - tileWidth, data->cy, 2));
-        //tiles.insert(world.map->tileForPosition(data->cx + tileWidth, data->cy, 2));
-        
-        //Three below
-        //tiles.insert(world.map->tileForPosition(data->cx - tileWidth, data->cy + tileHeight, 2));
-        //tiles.insert(world.map->tileForPosition(data->cx,             data->cy + tileHeight, 2));
-        //tiles.insert(world.map->tileForPosition(data->cx + tileWidth, data->cy + tileHeight, 2));
+        //3 Above
+        broadPhase.push_back(world.map->tileForPosition(myTile->cx - tileWidth, myTile->cy - tileHeight, 2));
+        broadPhase.push_back(world.map->tileForPosition(myTile->cx, myTile->cy - tileHeight, 2));
+        broadPhase.push_back(world.map->tileForPosition(myTile->cx + tileWidth, myTile->cy - tileHeight, 2));
+
+        //Two on the side
+        broadPhase.push_back(world.map->tileForPosition(myTile->cx + tileWidth, myTile->cy));
 
 
-        for(auto tile : tiles)
+        broadPhase.push_back(world.map->tileForPosition(myTile->cx - tileWidth, myTile->cy));
+
+        //2 Below
+        broadPhase.push_back(world.map->tileForPosition(myTile->cx - tileWidth, myTile->cy + tileHeight, 2));
+        broadPhase.push_back(world.map->tileForPosition(myTile->cx + tileWidth, myTile->cy + tileHeight, 2));
+        broadPhase.push_back(downTile);
+
+        //Last is my own tile
+        broadPhase.push_back(myTile);
+
+        Vector2d collision(0,0);
+
+        for(auto tile : broadPhase) 
         {
             if(tile == nullptr)
-                continue;
-            if(tile->tileId == 0)
-                continue;
-            AABB tileBox(tile->cx, tile->cy, tileWidth/2, tileHeight/2);
-
-            AABB &player = collidable->boxes.front();
-
-            SDL_assert(player.cx == p->x + 16);
-            SDL_assert(player.cy == p->y + 10);
-
-            Vector2d collision(0, 0);
-
-            if(player.didSimpleCollide(tileBox, collision))
             {
-                if(deltaX > 0)
+                continue;
+            }
+            AABB tileBox(tile->cx, tile->cy, tileWidth/2, tileHeight/2);
+            if(myTile->tileId != 0 && collideWithTile(tileBox, collidable, collision))
+            {
+                if(v->velX != 0)
                 {
-                    p->x += collision._x;
-                    collidable->boxes.front().cx += collision._x;
+                    std::cout << "Bumping in x by :" << collision._x << std::endl;
+                    p->x -= collision._x;
+                    player.cx -= collision._x;
+                    v->velX = 0;
                 }
-                if(deltaY > 0)
+                if(v->velY != 0)
                 {
-                    std::cout << "Adjusting p->y by : " << collision._y << std::endl;
-                    p->y += collision._y - player.rh;
-                    collidable->boxes.front().cy += collision._y - player.rh;
-                    v->velY = -ZombieWalk::kVelocityDown;
+                    std::cout << "Bumping in y by : " << collision._y << std::endl;
+                    p->y += collision._y;
+                    player.cy += collision._y;
+                    v->velY = 0;
                 }
 
             }
+            world.debugBoxes.push_back(new AABB(tileBox.cx, tileBox.cy, tileBox.rw, tileBox.rh));
         }
 
+        if(downTile->tileId == 0)
+        {
+            //Fall!
+            v->velY = ZombieWalk::kVelocityDown;
+        }
+        
+        /**
+         * Push aabbs to debug drawing
+         */
+        world.debugBoxes.push_back(new AABB(player.cx, player.cy, player.rw, player.rh));
     }
 
 }
+
+bool TileCollisionSystem::collideWithTile(AABB &t, Collidable *c, Vector2d &collision)
+{
+            AABB &player = c->boxes.front();
+            return player.didSimpleCollide(t, collision);
+}
+
+
 
 std::vector<AABB>* TileCollisionSystem::getUpdatedBoxes(Collidable *c, int deltaX, int deltaY)
 {

@@ -39,6 +39,8 @@ struct AABB
 
 };
 
+struct Bullet {};
+
 
 struct Collidable
 {
@@ -91,6 +93,11 @@ struct Rendered
     std::string spriteName = "";
     int currentFrame = 0;
     int w, h;
+};
+
+struct ColorMod 
+{
+    int r, g, b;
 };
 
 #endif

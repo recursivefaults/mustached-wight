@@ -2,6 +2,8 @@
 #include "../Constants.h"
 #include "../Components.h"
 
+#include <iostream>
+
 void WalkSystem::update(int elapsedTimeMS, World &world)
 {
     for(auto ev : world.entities)
