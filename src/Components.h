@@ -39,7 +39,20 @@ struct AABB
 
 };
 
-struct Bullet {};
+struct Bullet 
+{
+    int damage = 0;
+};
+struct Ammunition
+{
+    int count = 10;
+};
+struct WeaponStat
+{
+    int damage = 100;
+    int fireRateMS = 350;
+    int elapsedShotTimeMS = 0;
+};
 
 
 struct Collidable

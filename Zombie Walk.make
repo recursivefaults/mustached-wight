@@ -79,6 +79,7 @@ OBJECTS := \
 	$(OBJDIR)/JumpSystem.o \
 	$(OBJDIR)/PhysicsSystem.o \
 	$(OBJDIR)/PlayerInputSystem.o \
+	$(OBJDIR)/ShootSystem.o \
 	$(OBJDIR)/SystemFactory.o \
 	$(OBJDIR)/TileCollisionSystem.o \
 	$(OBJDIR)/WalkSystem.o \
@@ -184,6 +185,9 @@ $(OBJDIR)/PhysicsSystem.o: src/systems/PhysicsSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/PlayerInputSystem.o: src/systems/PlayerInputSystem.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
+$(OBJDIR)/ShootSystem.o: src/systems/ShootSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/SystemFactory.o: src/systems/SystemFactory.cpp

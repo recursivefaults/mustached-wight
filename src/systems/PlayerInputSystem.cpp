@@ -7,8 +7,12 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
         Velocity *v = world.velocities[ev.first];
         PlayerInputMap *inputMap = world.playerInputMaps[ev.first];
         PlayerInput *input = world.playerInputs[ev.first];
-        Jump *j = world.jumps[ev.first];
-        std::string animationName;
+
+        if(inputMap == nullptr)
+        {
+            continue;
+        }
+
         SDL_assert(v != nullptr);
         SDL_assert(inputMap != nullptr);
         SDL_assert(input != nullptr);
@@ -32,12 +36,18 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
                         input->input[PlayerActions::jump] = true;
                         dirty = true;
                         break;
+                    case PlayerActions::shoot:
+                        //Fire!
+                        input->input[PlayerActions::shoot] = true;
+                        break;
                     default:
                         dirty = false;
                         break;
                 }
             }
         }
+
+        //This feels weird here
         Rendered *render = world.renders[ev.first];
         if(dirty == false)
         {

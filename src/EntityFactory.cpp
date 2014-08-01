@@ -11,13 +11,15 @@ Entity EntityFactory::createGuy(World &world) {
     Velocity *v = new Velocity();
 
     PlayerInputMap *i = new PlayerInputMap();
-    i->keyMap = {{SDL_SCANCODE_W, PlayerActions::jump}, {SDL_SCANCODE_A, PlayerActions::moveLeft}, {SDL_SCANCODE_D, PlayerActions::moveRight}};
+    i->keyMap = {{SDL_SCANCODE_W, PlayerActions::jump}, {SDL_SCANCODE_A, PlayerActions::moveLeft}, {SDL_SCANCODE_D, PlayerActions::moveRight}, {SDL_SCANCODE_LSHIFT, PlayerActions::shoot}};
 
 
     int id = g->getId();
     addBasicZombieShapes(id, *p, world);
 
     world.playerInputMaps[id] = i;
+    world.weaponStats[id] = new WeaponStat();
+    world.ammunitions[id] = new Ammunition();
     world.playerInputs[id] = new PlayerInput();
     world.positions[id] =  p;
     world.velocities[id] =  v;
@@ -29,6 +31,46 @@ Entity EntityFactory::createGuy(World &world) {
 
     return *g;
 }
+
+Entity *EntityFactory::createBullet(World &world, Position *origin, WeaponStat &weapon)
+{
+    Entity *b = new Entity();
+    int id = b->getId();
+    Velocity *v = new Velocity();
+    v->velX = ZombieWalk::kBulletVelocity;
+    v->velY = 0;
+    Bullet *bullet = new Bullet();
+    bullet->damage = weapon.damage;
+    Collidable *c = new Collidable();
+    AABB box;
+    box.cx = origin->x + 2;
+    box.cy = origin->y + 1;
+    box.rh = 1;
+    box.rw = 2;
+    c->boxes.push_back(box);
+
+    ColorMod *color = new ColorMod();
+    color->r = 255;
+    color->g = 0;
+    color->b = 0;
+
+    Rendered *r = new Rendered();
+    r->w = 4;
+    r->h = 2;
+    
+
+    world.entities[id] = b;
+    world.colorMods[id] = color;
+    world.renders[id] = r;
+    world.positions[id] = origin;
+    world.velocities[id] = v;
+    world.collidables[id] = c;
+    world.bullets[id] = bullet;
+
+    return b;
+}
+
+
 
 Entity* EntityFactory::createZombie(World &world, Position &p, ColorMod &color)
 {
@@ -42,6 +84,7 @@ Entity* EntityFactory::createZombie(World &world, Position &p, ColorMod &color)
     c->b = color.b;
     int id = z->getId();
     addBasicZombieShapes(id, p, world);
+    world.entities[id] = z;
     world.colorMods[id] = c;
     world.positions[id] = pos;
     world.velocities[id] = new Velocity();

@@ -29,6 +29,8 @@ class World
         std::map<int, Collidable *> collidables;
         std::map<int, ColorMod *> colorMods;
         std::map<int, Bullet *> bullets;
+        std::map<int, WeaponStat *> weaponStats;
+        std::map<int, Ammunition *> ammunitions;
         std::vector<AABB *> debugBoxes;
         Map *map;
         SpriteManager manager;

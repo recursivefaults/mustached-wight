@@ -97,20 +97,28 @@ void Game::render() {
         destRect.h = render->h;
 
 
-        s = world.manager.getNamedSprite(render->spriteName);
-        SDL_assert(s->texture->getTexture() != nullptr);
-
-        //ColorMod if it exists
-        if(cv != world.colorMods.end())
+        if(render->spriteName.length() == 0)
         {
+            //Draw as a box;
             mod = cv->second;
-            SDL_SetTextureColorMod(s->texture->getTexture(), mod->r, mod->g, mod->b);
+            graphics.drawRect(&destRect, mod->r, mod->g, mod->b);
         } else {
-            SDL_SetTextureColorMod(s->texture->getTexture(), 255, 255 , 255);
-        }
 
-        //We have the sprite and the position, RENDER
-        graphics.drawTexture(s->texture->getTexture(), &destRect, &s->frames[render->currentFrame]);
+            s = world.manager.getNamedSprite(render->spriteName);
+            SDL_assert(s->texture->getTexture() != nullptr);
+
+            //ColorMod if it exists
+            if(cv != world.colorMods.end())
+            {
+                mod = cv->second;
+                SDL_SetTextureColorMod(s->texture->getTexture(), mod->r, mod->g, mod->b);
+            } else {
+                SDL_SetTextureColorMod(s->texture->getTexture(), 255, 255 , 255);
+            }
+
+            //We have the sprite and the position, RENDER
+            graphics.drawTexture(s->texture->getTexture(), &destRect, &s->frames[render->currentFrame]);
+        }
     }
 
     /**

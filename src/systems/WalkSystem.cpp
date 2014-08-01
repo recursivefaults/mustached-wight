@@ -15,6 +15,11 @@ void WalkSystem::update(int elapsedTimeMS, World &world)
         Rendered *render = world.renders[ev.first];
         Animation *a = world.animations[ev.first];
 
+        if(right == nullptr || left == nullptr)
+        {
+            continue;
+        }
+
         SDL_assert(v != nullptr);
         SDL_assert(input != nullptr);
 

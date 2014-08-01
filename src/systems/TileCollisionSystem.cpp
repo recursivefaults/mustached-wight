@@ -74,14 +74,12 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
             {
                 if(v->velX != 0)
                 {
-                    std::cout << "Bumping in x by :" << collision._x << std::endl;
                     p->x -= collision._x;
                     player.cx -= collision._x;
                     v->velX = 0;
                 }
                 if(v->velY != 0)
                 {
-                    std::cout << "Bumping in y by : " << collision._y << std::endl;
                     p->y += collision._y;
                     player.cy += collision._y;
                     v->velY = 0;

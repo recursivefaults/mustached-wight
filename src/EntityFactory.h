@@ -10,6 +10,7 @@ class EntityFactory
     public:
         Entity createGuy(World &world);
         Entity* createZombie(World &world, Position &p, ColorMod &color);
+        Entity* createBullet(World &world, Position *origin, WeaponStat &weapon);
     protected:
     private:
         void addBasicZombieShapes(int entityId, Position &p, World &world);
