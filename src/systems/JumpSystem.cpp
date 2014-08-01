@@ -7,9 +7,13 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
     for(auto ev : world.entities)
     {
         Jump *j = world.jumps[ev.first];
+        PlayerInput *input = world.playerInputs[ev.first];
         if(j == nullptr)
         {
             continue;
+        }
+        if(input != nullptr && input->input[PlayerActions::jump] == true) {
+            j->isJumping = true;
         }
         if(!j->isJumping) {
             continue;
@@ -18,12 +22,13 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
         Position *p = world.positions[ev.first];
 
         //If you're on the ground, jump
-        if(p->y == ZombieWalk::kMagicFloor) {
-
+        if(v->velY == 0)
+        {
+            v->velY = j->jumpVelocity;
         }
+
         //If you're not on the ground and you have more time, keep jumping
         //If you have no more time, stop jumping and prepare to fall.
-
         j->jumpDuration += elapsedTimeMS;
 
         if(j->jumpDuration > j->maxJumpTime) {
@@ -33,11 +38,5 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
             v->velY = 0;
             continue;
         }
-
-        //TODO Only jump when appropriate.
-        //Jump!
-        v->velY = j->jumpVelocity;
-
-
     }
 }
