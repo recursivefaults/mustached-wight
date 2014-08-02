@@ -72,16 +72,27 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
             AABB tileBox(tile->cx, tile->cy, tileWidth/2, tileHeight/2);
             if(myTile->tileId != 0 && collideWithTile(tileBox, collidable, collision))
             {
+                int mod = -1;
                 if(v->velX != 0)
                 {
-                    p->x -= collision._x;
-                    player.cx -= collision._x;
+                    if(v->velX > 0)
+                    {
+                        mod *= -1;
+                    } 
+
+                    p->x += collision._x * mod;
+                    player.cx += collision._x * mod;
                     v->velX = 0;
                 }
+                mod = -1;
                 if(v->velY != 0)
                 {
-                    p->y += collision._y;
-                    player.cy += collision._y;
+                    if(v->velY > 0)
+                    {
+                        mod *= -1;
+                    }
+                    p->y += collision._y * mod;
+                    player.cy += collision._y * mod;
                     v->velY = 0;
                 }
 

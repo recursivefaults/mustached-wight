@@ -12,31 +12,32 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
         {
             continue;
         }
-        if(input != nullptr && input->input[PlayerActions::jump] == true) {
-            j->isJumping = true;
-        }
-        if(!j->isJumping) {
+
+        if(input->input[PlayerActions::jump] != true)
+        {
             continue;
         }
-        Velocity *v = world.velocities[ev.first];
-        Position *p = world.positions[ev.first];
 
-        //If you're on the ground, jump
-        if(v->velY == 0)
+        Velocity *v = world.velocities[ev.first];
+
+        //If you're falling, continue to fall
+        if(v->velY > 0)
         {
-            v->velY = j->jumpVelocity;
+            continue;
         }
+
+        j->jumpDuration += elapsedTimeMS;
 
         //If you're not on the ground and you have more time, keep jumping
         //If you have no more time, stop jumping and prepare to fall.
-        j->jumpDuration += elapsedTimeMS;
-
-        if(j->jumpDuration > j->maxJumpTime) {
+        if(j->jumpDuration < j->maxJumpTime) {
+            v->velY = j->jumpVelocity;
+        } else
+        {
             //No more jumping
-            j->isJumping = false;
             j->jumpDuration = 0;
             v->velY = 0;
-            continue;
         }
+
     }
 }

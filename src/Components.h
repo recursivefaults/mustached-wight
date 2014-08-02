@@ -79,7 +79,6 @@ struct Jump
 {
     float jumpVelocity = -0.325;
     int jumpDuration = 0;
-    bool isJumping = false;
     int maxJumpTime = 525;
 };
 
