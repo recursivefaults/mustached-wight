@@ -11,13 +11,16 @@ class Entity
         Entity(int id) : _id(id) {};
         Entity(): _id(STATIC_COUNTER++) {};
         ~Entity() {};
-        void addComponent(int type, Component *component);
-        bool hasCompoenents(int mask);
-        Component* getComponentForType(int type);
+        void addComponent(uint type, Component *component);
+        bool hasCompoenents(uint mask);
+        Component* getComponentForType(uint type);
+        void removeComponent(uint type);
         int getId() {return _id;};
     protected:
-        std::map<int, Component*> components;
+        std::map<uint, Component*> components;
         int _id;
+    private:
+        uint componentMask;
 };
 
 #endif
