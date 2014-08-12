@@ -1,5 +1,6 @@
 #include "JumpSystem.h"
 #include "PhysicsSystem.h"
+#include <iostream>
 
 
 void JumpSystem::update(int elapsedTimeMS, World &world)
@@ -16,13 +17,15 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
         if(input->input[PlayerActions::jump] != true)
         {
             continue;
+        } else {
+            j->jumpDuration = 0;
         }
 
         Velocity *v = world.velocities[ev.first];
 
-        //If you're falling, continue to fall
-        if(v->velY > 0)
-        {
+        if(v->velY > 0 && j->jumpDuration == 0) {
+            //Falling
+            std::cout << "Falling, skipping the jump" << std::endl;
             continue;
         }
 
@@ -32,7 +35,8 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
         //If you have no more time, stop jumping and prepare to fall.
         if(j->jumpDuration < j->maxJumpTime) {
             v->velY = j->jumpVelocity;
-        } else
+        } 
+        else
         {
             //No more jumping
             j->jumpDuration = 0;

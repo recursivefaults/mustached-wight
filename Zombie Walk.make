@@ -67,6 +67,7 @@ OBJECTS := \
 	$(OBJDIR)/jsoncpp.o \
 	$(OBJDIR)/asset_helper.o \
 	$(OBJDIR)/Components.o \
+	$(OBJDIR)/Entity.o \
 	$(OBJDIR)/EntityFactory.o \
 	$(OBJDIR)/game.o \
 	$(OBJDIR)/graphics.o \
@@ -149,6 +150,9 @@ $(OBJDIR)/asset_helper.o: src/asset_helper.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/Components.o: src/Components.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
+$(OBJDIR)/Entity.o: src/Entity.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(CXXFLAGS) -o $@ -c $<
 $(OBJDIR)/EntityFactory.o: src/EntityFactory.cpp

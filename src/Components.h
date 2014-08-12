@@ -17,7 +17,16 @@ enum class PlayerActions
     burn
 };
 
-struct TileMapCollision {};
+class Component
+{
+    public:
+        Component() {};
+        virtual ~Component(){};
+    protected:
+    private:
+};
+
+struct TileMapCollision: public Component {};
 
 struct Vector2d
 {

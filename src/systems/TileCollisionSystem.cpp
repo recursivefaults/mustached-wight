@@ -72,6 +72,7 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
             AABB tileBox(tile->cx, tile->cy, tileWidth/2, tileHeight/2);
             if(myTile->tileId != 0 && collideWithTile(tileBox, collidable, collision))
             {
+                std::cout << "Collision: " << collision._x << ", " << collision._y << std::endl;
                 int mod = -1;
                 if(v->velX != 0)
                 {
@@ -96,8 +97,8 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
                     v->velY = 0;
                 }
 
-            }
             world.debugBoxes.push_back(new AABB(tileBox.cx, tileBox.cy, tileBox.rw, tileBox.rh));
+            }
         }
 
         if(downTile->tileId == 0)
