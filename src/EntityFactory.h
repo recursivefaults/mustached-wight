@@ -13,7 +13,7 @@ class EntityFactory
         Entity* createBullet(World &world, Position *origin, WeaponStat &weapon);
     protected:
     private:
-        void addBasicZombieShapes(int entityId, Position &p, World &world);
+        void addBasicZombieShapes(Entity *entity, Position &p, World &world);
 };
 
 #endif

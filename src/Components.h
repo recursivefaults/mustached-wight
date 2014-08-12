@@ -6,30 +6,30 @@
 #include <vector>
 #include <map>
 
-enum class ComponentTypes
-{
-    PLAYER_ACTIONS     = (1 << 0),
-    TILE_MAP_COLLISION = (1 << 1),
-    VECTOR2D           = (1 << 2),
-    AABB               = (1 << 3),
-    BULLET             = (1 << 4),
-    AMMUNITION         = (1 << 5),
-    WEAPON_STAT        = (1 << 6),
-    COLLIDABLE         = (1 << 7),
-    POSITION           = (1 << 8),
-    PLAYER_INPUT_MAP   = (1 << 9),
-    PLAYER_INPUT       = (1 << 10),
-    JUMP               = (1 << 11),
-    WALK_LEFT          = (1 << 12),
-    WALK_RIGHT         = (1 << 13),
-    DUCK               = (1 << 14),
-    SHOOT              = (1 << 15),
-    LOOT               = (1 << 16),
-    BURN               = (1 << 17),
-    ANIMATION          = (1 << 18),
-    RENDERED           = (1 << 19),
-    COLORMOD           = (1 << 20)
-};
+typedef uint32_t ComponentFlags;
+
+#define K_PLAYER_ACTIONS       (1 << 0)
+#define K_TILE_MAP_COLLISION   (1 << 1)
+#define K_VECTOR2D             (1 << 2)
+#define K_AABB                 (1 << 3)
+#define K_BULLET               (1 << 4)
+#define K_AMMUNITION           (1 << 5)
+#define K_WEAPON_STAT          (1 << 6)
+#define K_COLLIDABLE           (1 << 7)
+#define K_POSITION             (1 << 8)
+#define K_VELOCITY             (1 << 9)
+#define K_PLAYER_INPUT_MAP     (1 << 10)
+#define K_PLAYER_INPUT         (1 << 11)
+#define K_JUMP                 (1 << 12)
+#define K_WALK_LEFT            (1 << 13)
+#define K_WALK_RIGHT           (1 << 14)
+#define K_DUCK                 (1 << 15)
+#define K_SHOOT                (1 << 16)
+#define K_LOOT                 (1 << 17)
+#define K_BURN                 (1 << 18)
+#define K_ANIMATION            (1 << 19)
+#define K_RENDERED             (1 << 20)
+#define K_COLORMOD             (1 << 21)
 
 enum class PlayerActions
 {

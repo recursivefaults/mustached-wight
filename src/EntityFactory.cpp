@@ -15,19 +15,19 @@ Entity EntityFactory::createGuy(World &world) {
 
 
     int id = g->getId();
-    addBasicZombieShapes(id, *p, world);
+    addBasicZombieShapes(g, *p, world);
 
-    world.playerInputMaps[id] = i;
-    world.weaponStats[id] = new WeaponStat();
-    world.ammunitions[id] = new Ammunition();
-    world.playerInputs[id] = new PlayerInput();
-    world.positions[id] =  p;
-    world.velocities[id] =  v;
+    g->addComponent(K_PLAYER_INPUT_MAP, i);
+    g->addComponent(K_WEAPON_STAT, new WeaponStat());
+    g->addComponent(K_AMMUNITION, new Ammunition());
+    g->addComponent(K_PLAYER_INPUT, new PlayerInput());
+    g->addComponent(K_JUMP, new Jump());
+    g->addComponent(K_WALK_LEFT, new WalkLeft());
+    g->addComponent(K_WALK_RIGHT, new WalkRight());
+    g->addComponent(K_TILE_MAP_COLLISION, new TileMapCollision());
+    g->addComponent(K_POSITION, p);
+    g->addComponent(K_VELOCITY, v);
     world.entities[id] =  g;
-    world.tileMapCollisions[id] = new TileMapCollision();
-    world.jumps[id] = new Jump();
-    world.walkRights[id] = new WalkRight();
-    world.walkLefts[id] = new WalkLeft();
 
     return *g;
 }
@@ -60,12 +60,12 @@ Entity *EntityFactory::createBullet(World &world, Position *origin, WeaponStat &
     
 
     world.entities[id] = b;
-    world.colorMods[id] = color;
-    world.renders[id] = r;
-    world.positions[id] = origin;
-    world.velocities[id] = v;
-    world.collidables[id] = c;
-    world.bullets[id] = bullet;
+    b->addComponent(K_COLORMOD, color);
+    b->addComponent(K_RENDERED, r);
+    b->addComponent(K_POSITION, origin);
+    b->addComponent(K_VELOCITY, v);
+    b->addComponent(K_COLLIDABLE, c);
+    b->addComponent(K_BULLET, bullet);
 
     return b;
 }
@@ -83,16 +83,16 @@ Entity* EntityFactory::createZombie(World &world, Position &p, ColorMod &color)
     c->g = color.g;
     c->b = color.b;
     int id = z->getId();
-    addBasicZombieShapes(id, p, world);
+    addBasicZombieShapes(z, p, world);
     world.entities[id] = z;
-    world.colorMods[id] = c;
-    world.positions[id] = pos;
-    world.velocities[id] = new Velocity();
+    z->addComponent(K_COLORMOD, c);
+    z->addComponent(K_POSITION, pos);
+    z->addComponent(K_VELOCITY, new Velocity());
 
     return z;
 }
 
-void EntityFactory::addBasicZombieShapes(int entityId, Position &p, World &world)
+void EntityFactory::addBasicZombieShapes(Entity *entity, Position &p, World &world)
 {
     Rendered *rendered = new Rendered();
     rendered->spriteName = "playerStandLeft";
@@ -120,6 +120,6 @@ void EntityFactory::addBasicZombieShapes(int entityId, Position &p, World &world
     AABB box(p.x + rendered->w/2, p.y + rendered->h/2, 8, 8);
     collidable->boxes.push_back(box);
 
-    world.renders[entityId] = rendered;
-    world.collidables[entityId] = collidable;
+    entity->addComponent(K_RENDERED, rendered);
+    entity->addComponent(K_COLLIDABLE, collidable);
 }
