@@ -1,5 +1,6 @@
 
 #include "Entity.h"
+#include <iostream>
 
 void Entity::addComponent(ComponentFlags type, Component *component)
 {
@@ -34,5 +35,5 @@ void Entity::removeComponent(ComponentFlags type)
     }
     components.erase(item);
     
-    componentMask |= ~type;
+    componentMask &= ~type;
 }

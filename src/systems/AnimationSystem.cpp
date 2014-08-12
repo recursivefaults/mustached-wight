@@ -17,6 +17,7 @@ void AnimationSystem::update(int elapsedTimeMS, World &world)
         Rendered *rendered = static_cast<Rendered *>(entity->getComponentForType(K_RENDERED));
         Sprite *s = world.manager.getNamedSprite(rendered->spriteName);
 
+        SDL_assert(animation != nullptr);
         SDL_assert(s != nullptr);
         SDL_assert(s->fps > 0);
         int tick = 1000 / s->fps;
