@@ -12,7 +12,7 @@ class Entity
         Entity(): _id(STATIC_COUNTER++) {};
         ~Entity() {};
         void addComponent(ComponentFlags type, Component *component);
-        bool hasCompoenents(ComponentFlags mask);
+        bool hasComponents(ComponentFlags mask);
         Component* getComponentForType(ComponentFlags type);
         void removeComponent(ComponentFlags type);
         int getId() {return _id;};
@@ -20,7 +20,7 @@ class Entity
         std::map<ComponentFlags, Component*> components;
         int _id;
     private:
-        uint componentMask;
+        ComponentFlags componentMask;
 };
 
 #endif

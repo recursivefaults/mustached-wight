@@ -12,6 +12,7 @@ class World
 {
     public:
         std::map<int, Entity *>   entities;
+        std::vector<AABB *> debugBoxes;
         Map *map;
         SpriteManager manager;
     protected:

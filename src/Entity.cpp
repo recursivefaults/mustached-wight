@@ -6,7 +6,7 @@ void Entity::addComponent(ComponentFlags type, Component *component)
     components[type] = component;
     componentMask |= type;
 }
-bool Entity::hasCompoenents(ComponentFlags mask)
+bool Entity::hasComponents(ComponentFlags mask)
 {
     return componentMask & mask;
 }

@@ -83,24 +83,22 @@ void Game::render() {
     Position *p;
     Sprite *s;
     SDL_Rect destRect;
-    for(auto kv = world.renders.begin(); kv != world.renders.end(); kv++) {
-        std::map<int, Position *>::iterator pv = world.positions.find(kv->first);
-        std::map<int, ColorMod *>::iterator cv = world.colorMods.find(kv->first);
-        if(pv == world.positions.end()) {
+    for(auto kv = world.entities.begin(); kv != world.entities.end(); kv++) {
+        if(!kv->second->hasComponents(K_RENDERED | K_POSITION)) {
             continue;
         }
-        render = kv->second;
-        p = pv->second;
+        render = static_cast<Rendered *>(kv->second->getComponentForType(K_RENDERED));
+        p = static_cast<Position *>(kv->second->getComponentForType(K_POSITION));
+        mod = static_cast<ColorMod *>(kv->second->getComponentForType(K_COLORMOD));
         destRect.x = p->x;
         destRect.y = p->y; 
         destRect.w = render->w;
         destRect.h = render->h;
 
 
-        if(render->spriteName.length() == 0)
+        if(render->spriteName.length() == 0 && mod != nullptr)
         {
             //Draw as a box;
-            mod = cv->second;
             graphics.drawRect(&destRect, mod->r, mod->g, mod->b);
         } else {
 
@@ -108,9 +106,8 @@ void Game::render() {
             SDL_assert(s->texture->getTexture() != nullptr);
 
             //ColorMod if it exists
-            if(cv != world.colorMods.end())
+            if(mod != nullptr)
             {
-                mod = cv->second;
                 SDL_SetTextureColorMod(s->texture->getTexture(), mod->r, mod->g, mod->b);
             } else {
                 SDL_SetTextureColorMod(s->texture->getTexture(), 255, 255 , 255);
