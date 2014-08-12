@@ -9,14 +9,14 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
 {
     for(auto ev : world.entities)
     {
-        TileMapCollision *tc = world.tileMapCollisions[ev.first];
-        if(tc == nullptr) {
+        Entity *entity = ev.second;
+        if(!entity->hasComponents(K_TILE_MAP_COLLISION)) {
             continue;
         }
-
-        Position *p = world.positions[ev.first];
-        Velocity *v = world.velocities[ev.first];
-        Collidable *collidable = world.collidables[ev.first];
+        TileMapCollision *tc = static_cast<TileMapCollision *>(entity->getComponentForType(K_TILE_MAP_COLLISION));
+        Position *p = static_cast<Position *>(entity->getComponentForType(K_POSITION));
+        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(K_VELOCITY));
+        Collidable *collidable = static_cast<Collidable *>(entity->getComponentForType(K_COLLIDABLE));
 
         /**
          * 1. Adjust player movement

@@ -9,13 +9,15 @@ void PhysicsSystem::update(int elapsedTimeMs, World &world)
 {
     for(auto ev : world.entities)
     {
-        //Position and Velocity
-        Velocity *v = world.velocities[ev.first];
-        Position *p = world.positions[ev.first];
-        if(v == nullptr || p == nullptr)
+        Entity *entity = ev.second;
+
+        if(!entity->hasComponents(K_POSITION | K_VELOCITY)) 
         {
             continue;
         }
+        //Position and Velocity
+        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(K_VELOCITY));
+        Position *p = static_cast<Position *>(entity->getComponentForType(K_POSITION));
 
         int newX = (v->velX * elapsedTimeMs);
         int newY = (v->velY * elapsedTimeMs);
@@ -34,7 +36,7 @@ void PhysicsSystem::update(int elapsedTimeMs, World &world)
         p->x += newX;
         p->y += newY;
 
-        Collidable *c = world.collidables[ev.first];
+        Collidable *c = static_cast<Collidable *>(entity->getComponentForType(K_COLLIDABLE));
         if(c != nullptr)
         {
             for(auto &box : c->boxes)
@@ -43,6 +45,6 @@ void PhysicsSystem::update(int elapsedTimeMs, World &world)
                 box.cy += newY;
             }
         }
-    };
+    }
 
 }

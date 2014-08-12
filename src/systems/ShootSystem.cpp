@@ -10,7 +10,7 @@ void ShootSystem::update(int elapsedTimeMS, World &world)
     for(auto entities : world.entities)
     {
         Entity *entity = entities.second;
-        if(!entity->hasComponents(K_AMMO | K_WEAPON_STAT | K_PLAYER_INPUT)) {
+        if(!entity->hasComponents(K_AMMUNITION | K_WEAPON_STAT | K_PLAYER_INPUT)) {
                 continue;
         }
         PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(K_PLAYER_INPUT));

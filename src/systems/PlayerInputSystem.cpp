@@ -4,14 +4,16 @@
 
 void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
     for (auto ev: world.entities) {
-        Velocity *v = world.velocities[ev.first];
-        PlayerInputMap *inputMap = world.playerInputMaps[ev.first];
-        PlayerInput *input = world.playerInputs[ev.first];
-
-        if(inputMap == nullptr)
+        Entity *entity = ev.second;
+        if(!entity->hasComponents(K_PLAYER_INPUT_MAP))
         {
             continue;
         }
+
+        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(K_VELOCITY));
+        PlayerInputMap *inputMap = static_cast<PlayerInputMap *>(entity->getComponentForType(K_PLAYER_INPUT_MAP));
+        PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(K_PLAYER_INPUT));
+
 
         SDL_assert(v != nullptr);
         SDL_assert(inputMap != nullptr);
@@ -48,7 +50,7 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
         }
 
         //This feels weird here
-        Rendered *render = world.renders[ev.first];
+        Rendered *render = static_cast<Rendered *>(entity->getComponentForType(K_RENDERED));
         if(dirty == false)
         {
             if(v->velX > 0.0) {
@@ -59,7 +61,7 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
             }
             //No keys touched, default to standing
             render->currentFrame = 0;
-            world.animations.erase(ev.first);
+            entity->removeComponent(K_ANIMATION);
             v->velX = 0;
         }
     }

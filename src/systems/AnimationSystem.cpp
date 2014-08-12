@@ -6,14 +6,15 @@ void AnimationSystem::update(int elapsedTimeMS, World &world)
 {
     for(auto ev : world.entities)
     {
-        Animation *animation = world.animations[ev.first];
-        if(animation == nullptr)
+        Entity *entity = ev.second;
+        if(!entity->hasComponents(K_ANIMATION))
         {
             continue;
         }
 
 
-        Rendered *rendered = world.renders[ev.first];
+        Animation *animation = static_cast<Animation *>(entity->getComponentForType(K_ANIMATION));
+        Rendered *rendered = static_cast<Rendered *>(entity->getComponentForType(K_RENDERED));
         Sprite *s = world.manager.getNamedSprite(rendered->spriteName);
 
         SDL_assert(s != nullptr);

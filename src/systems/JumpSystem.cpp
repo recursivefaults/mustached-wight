@@ -25,7 +25,7 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
             j->jumpDuration = 0;
         }
 
-        Velocity *v = world.velocities[ev.first];
+        Velocity *v = static_cast<Velocity *>(e->getComponentForType(K_VELOCITY));
 
         if(v->velY > 0 && j->jumpDuration == 0) {
             //Falling

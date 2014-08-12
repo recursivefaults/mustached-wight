@@ -8,17 +8,18 @@ void WalkSystem::update(int elapsedTimeMS, World &world)
 {
     for(auto ev : world.entities)
     {
-        WalkRight *right = world.walkRights[ev.first];
-        WalkLeft *left = world.walkLefts[ev.first];
-        Velocity *v = world.velocities[ev.first];
-        PlayerInput *input = world.playerInputs[ev.first];
-        Rendered *render = world.renders[ev.first];
-        Animation *a = world.animations[ev.first];
-
-        if(right == nullptr || left == nullptr)
+        Entity *entity = ev.second;
+        if(!entity->hasComponents(K_WALK_LEFT | K_WALK_RIGHT))
         {
             continue;
         }
+        WalkRight *right = static_cast<WalkRight *>(entity->getComponentForType(K_WALK_RIGHT));
+        WalkLeft *left = static_cast<WalkLeft *>(entity->getComponentForType(K_WALK_LEFT));
+        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(K_VELOCITY));
+        PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(K_PLAYER_INPUT));
+        Rendered *render = static_cast<Rendered *>(entity->getComponentForType(K_RENDERED));
+        Animation *a = static_cast<Animation *>(entity->getComponentForType(K_ANIMATION));
+
 
         SDL_assert(v != nullptr);
         SDL_assert(input != nullptr);
@@ -48,7 +49,7 @@ void WalkSystem::update(int elapsedTimeMS, World &world)
         {
             if(a == nullptr)
             {
-                world.animations[ev.first] = new Animation();
+                entity->addComponent(K_ANIMATION, new Animation());
             }
         }
 
