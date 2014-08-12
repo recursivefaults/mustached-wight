@@ -9,15 +9,15 @@ void ShootSystem::update(int elapsedTimeMS, World &world)
     EntityFactory factory;
     for(auto entities : world.entities)
     {
-        PlayerInput *input = world.playerInputs[entities.first];
-        Collidable *collidable = world.collidables[entities.first];
-        Ammunition *ammo = world.ammunitions[entities.first];
-        WeaponStat *weapon = world.weaponStats[entities.first];
-
-        if(ammo == nullptr || weapon == nullptr || input == nullptr)
-        {
-            continue;
+        Entity *entity = entities.second;
+        if(!entity->hasComponents(K_AMMO | K_WEAPON_STAT | K_PLAYER_INPUT)) {
+                continue;
         }
+        PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(K_PLAYER_INPUT));
+        Collidable *collidable = static_cast<Collidable *>(entity->getComponentForType(K_COLLIDABLE));
+        Ammunition *ammo = static_cast<Ammunition *>(entity->getComponentForType(K_AMMUNITION));
+        WeaponStat *weapon = static_cast<WeaponStat *>(entity->getComponentForType(K_WEAPON_STAT));
+
 
         //Pre-checks
         if(ammo->count == 0) {

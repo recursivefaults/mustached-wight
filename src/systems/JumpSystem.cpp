@@ -7,8 +7,12 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
 {
     for(auto ev : world.entities)
     {
-        Jump *j = world.jumps[ev.first];
-        PlayerInput *input = world.playerInputs[ev.first];
+        if(!ev.second->hasComponents(K_JUMP | K_PLAYER_INPUT)) {
+            continue;
+        }
+        Entity *e = ev.second;
+        Jump *j = static_cast<Jump *>(e->getComponentForType(K_JUMP));
+        PlayerInput *input = static_cast<PlayerInput *>(e->getComponentForType(K_PLAYER_INPUT));
         if(j == nullptr)
         {
             continue;
