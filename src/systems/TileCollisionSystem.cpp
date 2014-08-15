@@ -31,39 +31,13 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
         int tileWidth = world.map->sprite->tileWidth;
         int tileHeight = world.map->sprite->tileHeight;
 
+        std::vector<TileData *> *broadPhase = getBroadPhaseTiles(newX, newY, world);
         TileData *myTile = world.map->tileForPosition(newX, newY, 2);
         TileData *downTile = world.map->tileForPosition(myTile->cx, myTile->cy + tileHeight, 2);
 
-        if(myTile == nullptr)
-        {
-            std::cout << "No tile at " << newX << ", " << newY << std::endl;
-            continue;
-        }
-
-        std::vector<TileData *> broadPhase; 
-
-        //3 Above
-        broadPhase.push_back(world.map->tileForPosition(myTile->cx - tileWidth, myTile->cy - tileHeight, 2));
-        broadPhase.push_back(world.map->tileForPosition(myTile->cx, myTile->cy - tileHeight, 2));
-        broadPhase.push_back(world.map->tileForPosition(myTile->cx + tileWidth, myTile->cy - tileHeight, 2));
-
-        //Two on the side
-        broadPhase.push_back(world.map->tileForPosition(myTile->cx + tileWidth, myTile->cy));
-
-
-        broadPhase.push_back(world.map->tileForPosition(myTile->cx - tileWidth, myTile->cy));
-
-        //2 Below
-        broadPhase.push_back(world.map->tileForPosition(myTile->cx - tileWidth, myTile->cy + tileHeight, 2));
-        broadPhase.push_back(world.map->tileForPosition(myTile->cx + tileWidth, myTile->cy + tileHeight, 2));
-        broadPhase.push_back(downTile);
-
-        //Last is my own tile
-        broadPhase.push_back(myTile);
-
         Vector2d collision(0,0);
 
-        for(auto tile : broadPhase) 
+        for(auto tile : *broadPhase) 
         {
             if(tile == nullptr)
             {
@@ -96,7 +70,7 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
                     v->velY = 0;
                 }
 
-            world.debugBoxes.push_back(new AABB(tileBox.cx, tileBox.cy, tileBox.rw, tileBox.rh));
+                world.debugBoxes.push_back(new AABB(tileBox.cx, tileBox.cy, tileBox.rw, tileBox.rh));
             }
         }
 
@@ -118,6 +92,37 @@ bool TileCollisionSystem::collideWithTile(AABB &t, Collidable *c, Vector2d &coll
 {
             AABB &player = c->boxes.front();
             return player.didSimpleCollide(t, collision);
+}
+
+
+std::vector<TileData *>* TileCollisionSystem::getBroadPhaseTiles(int x, int y, World &world) {
+        std::vector<TileData *> *broadPhase = new std::vector<TileData *>();
+
+        int tileWidth = world.map->sprite->tileWidth;
+        int tileHeight = world.map->sprite->tileHeight;
+
+        TileData *myTile = world.map->tileForPosition(x, y, 2);
+        TileData *downTile = world.map->tileForPosition(myTile->cx, myTile->cy + tileHeight, 2);
+
+        //3 Above
+        broadPhase->push_back(world.map->tileForPosition(myTile->cx - tileWidth, myTile->cy - tileHeight, 2));
+        broadPhase->push_back(world.map->tileForPosition(myTile->cx, myTile->cy - tileHeight, 2));
+        broadPhase->push_back(world.map->tileForPosition(myTile->cx + tileWidth, myTile->cy - tileHeight, 2));
+
+        //Two on the side
+        broadPhase->push_back(world.map->tileForPosition(myTile->cx + tileWidth, myTile->cy));
+
+
+        broadPhase->push_back(world.map->tileForPosition(myTile->cx - tileWidth, myTile->cy));
+
+        //2 Below
+        broadPhase->push_back(world.map->tileForPosition(myTile->cx - tileWidth, myTile->cy + tileHeight, 2));
+        broadPhase->push_back(world.map->tileForPosition(myTile->cx + tileWidth, myTile->cy + tileHeight, 2));
+        broadPhase->push_back(downTile);
+
+        //Last is my own tile
+        broadPhase->push_back(myTile);
+        return broadPhase;
 }
 
 
