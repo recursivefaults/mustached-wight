@@ -40,7 +40,6 @@ Map::Map(const std::string mapName, Graphics &graphics)
                 tile->cy = tile->y + sprite->tileHeight/2;
                 tile->h = sprite->tileHeight;
                 tile->w = sprite->tileWidth;
-                std::cout << "Tile: " << tile->cx << ", " << tile->cy << std::endl;
                 l->data[i][j] = tile;
             }
         }
@@ -57,10 +56,9 @@ TileData* Map::tileForPosition(int x, int y, int layerNumber)
 
     //Convert x and y into tile offset
     int column = x / sprite->tileWidth;
-    int row = y / sprite->tileHeight * layer->widthInTiles;
+    int row = y / sprite->tileHeight;
 
     TileData *d = layer->data[row][column];
-    std::cout << "Tile for: (" << x << ", " << y << ") is: " << row << ", " << column << std::endl;
     SDL_assert(d != nullptr);
     SDL_assert(d->cx - sprite->tileWidth/2 <= x);
     SDL_assert(d->cx + sprite->tileWidth/2 >= x);

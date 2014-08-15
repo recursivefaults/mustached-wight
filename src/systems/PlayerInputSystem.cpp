@@ -10,7 +10,6 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
             continue;
         }
 
-        std::cout << "EntityID: " << entity->getId() << std::endl;
         SDL_assert(entity->getId() == 0);
 
         Velocity *v = static_cast<Velocity *>(entity->getComponentForType(ComponentTypes::K_VELOCITY));
