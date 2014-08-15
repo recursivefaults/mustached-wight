@@ -10,13 +10,13 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
     for(auto ev : world.entities)
     {
         Entity *entity = ev.second;
-        if(!entity->hasComponents(K_TILE_MAP_COLLISION)) {
+        if(!entity->hasComponents(ComponentTypes::K_TILE_MAP_COLLISION)) {
             continue;
         }
-        TileMapCollision *tc = static_cast<TileMapCollision *>(entity->getComponentForType(K_TILE_MAP_COLLISION));
-        Position *p = static_cast<Position *>(entity->getComponentForType(K_POSITION));
-        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(K_VELOCITY));
-        Collidable *collidable = static_cast<Collidable *>(entity->getComponentForType(K_COLLIDABLE));
+        TileMapCollision *tc = static_cast<TileMapCollision *>(entity->getComponentForType(ComponentTypes::K_TILE_MAP_COLLISION));
+        Position *p = static_cast<Position *>(entity->getComponentForType(ComponentTypes::K_POSITION));
+        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(ComponentTypes::K_VELOCITY));
+        Collidable *collidable = static_cast<Collidable *>(entity->getComponentForType(ComponentTypes::K_COLLIDABLE));
 
         /**
          * 1. Adjust player movement
@@ -72,7 +72,6 @@ void TileCollisionSystem::update(int elapsedTimeMS, World &world)
             AABB tileBox(tile->cx, tile->cy, tileWidth/2, tileHeight/2);
             if(myTile->tileId != 0 && collideWithTile(tileBox, collidable, collision))
             {
-                std::cout << "Collision: " << collision._x << ", " << collision._y << std::endl;
                 int mod = -1;
                 if(v->velX != 0)
                 {

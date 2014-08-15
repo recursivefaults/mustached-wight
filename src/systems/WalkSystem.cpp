@@ -9,16 +9,18 @@ void WalkSystem::update(int elapsedTimeMS, World &world)
     for(auto ev : world.entities)
     {
         Entity *entity = ev.second;
-        if(!entity->hasComponents(K_WALK_LEFT | K_WALK_RIGHT))
+        if(!entity->hasComponents(ComponentTypes::K_WALK_LEFT) || 
+                !entity->hasComponents(ComponentTypes::K_WALK_RIGHT))
+
         {
             continue;
         }
-        WalkRight *right = static_cast<WalkRight *>(entity->getComponentForType(K_WALK_RIGHT));
-        WalkLeft *left = static_cast<WalkLeft *>(entity->getComponentForType(K_WALK_LEFT));
-        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(K_VELOCITY));
-        PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(K_PLAYER_INPUT));
-        Rendered *render = static_cast<Rendered *>(entity->getComponentForType(K_RENDERED));
-        Animation *a = static_cast<Animation *>(entity->getComponentForType(K_ANIMATION));
+        WalkRight *right = static_cast<WalkRight *>(entity->getComponentForType(ComponentTypes::K_WALK_RIGHT));
+        WalkLeft *left = static_cast<WalkLeft *>(entity->getComponentForType(ComponentTypes::K_WALK_LEFT));
+        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(ComponentTypes::K_VELOCITY));
+        PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(ComponentTypes::K_PLAYER_INPUT));
+        Rendered *render = static_cast<Rendered *>(entity->getComponentForType(ComponentTypes::K_RENDERED));
+        Animation *a = static_cast<Animation *>(entity->getComponentForType(ComponentTypes::K_ANIMATION));
 
 
         SDL_assert(v != nullptr);
@@ -49,7 +51,7 @@ void WalkSystem::update(int elapsedTimeMS, World &world)
         {
             if(a == nullptr)
             {
-                entity->addComponent(K_ANIMATION, new Animation());
+                entity->addComponent(ComponentTypes::K_ANIMATION, new Animation());
             }
         }
 

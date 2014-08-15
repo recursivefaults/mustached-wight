@@ -16,7 +16,7 @@ struct Layer
         int priority;
         int widthInTiles;
         int heightInTiles;
-        std::vector<TileData *> data;
+        std::vector< std::vector< TileData *> > data;
 };
 
 

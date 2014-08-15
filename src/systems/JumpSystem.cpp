@@ -7,12 +7,12 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
 {
     for(auto ev : world.entities)
     {
-        if(!ev.second->hasComponents(K_JUMP | K_PLAYER_INPUT)) {
+        if(!ev.second->hasComponents(ComponentTypes::K_JUMP) || !ev.second->hasComponents(ComponentTypes::K_PLAYER_INPUT)) {
             continue;
         }
         Entity *e = ev.second;
-        Jump *j = static_cast<Jump *>(e->getComponentForType(K_JUMP));
-        PlayerInput *input = static_cast<PlayerInput *>(e->getComponentForType(K_PLAYER_INPUT));
+        Jump *j = static_cast<Jump *>(e->getComponentForType(ComponentTypes::K_JUMP));
+        PlayerInput *input = static_cast<PlayerInput *>(e->getComponentForType(ComponentTypes::K_PLAYER_INPUT));
         if(j == nullptr)
         {
             continue;
@@ -25,7 +25,7 @@ void JumpSystem::update(int elapsedTimeMS, World &world)
             j->jumpDuration = 0;
         }
 
-        Velocity *v = static_cast<Velocity *>(e->getComponentForType(K_VELOCITY));
+        Velocity *v = static_cast<Velocity *>(e->getComponentForType(ComponentTypes::K_VELOCITY));
 
         if(v->velY > 0 && j->jumpDuration == 0) {
             //Falling

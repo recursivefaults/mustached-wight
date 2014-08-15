@@ -27,22 +27,23 @@ Map::Map(const std::string mapName, Graphics &graphics)
         Layer *l = new Layer();
         l->widthInTiles = blob["width"].asInt();
         l->heightInTiles = blob["height"].asInt();
+        l->data = std::vector< std::vector<TileData *> >(l->heightInTiles, std::vector<TileData *>(l->widthInTiles));
         l->priority = count++;
-        int dataCounter = 0;
-        for(auto id : blob["data"])
-        {
-            TileData *tile = new TileData();
-            tile->tileId = id.asInt();
-            tile->x = sprite->tileWidth * (dataCounter % l->widthInTiles);
-            tile->y = sprite->tileHeight * (dataCounter / l->widthInTiles);
-            tile->cx = tile->x + sprite->tileWidth/2;
-            tile->cy = tile->y + sprite->tileHeight/2;
-            tile->h = sprite->tileHeight;
-            tile->w = sprite->tileWidth;
-            l->data.push_back(tile);
-            dataCounter++;
+        for(int i = 0; i < l->heightInTiles; ++i) {
+            for(int j = 0; j< l->widthInTiles; ++j) {
+                auto id = blob["data"][i * l->widthInTiles + j];
+                TileData *tile = new TileData();
+                tile->tileId = id.asInt();
+                tile->x = sprite->tileWidth * j;
+                tile->y = sprite->tileHeight * i;
+                tile->cx = tile->x + sprite->tileWidth/2;
+                tile->cy = tile->y + sprite->tileHeight/2;
+                tile->h = sprite->tileHeight;
+                tile->w = sprite->tileWidth;
+                std::cout << "Tile: " << tile->cx << ", " << tile->cy << std::endl;
+                l->data[i][j] = tile;
+            }
         }
-
         layers.push_back(l);
     }
 }
@@ -55,11 +56,12 @@ TileData* Map::tileForPosition(int x, int y, int layerNumber)
     Layer *layer = layers[layerNumber];
 
     //Convert x and y into tile offset
-    //
     int column = x / sprite->tileWidth;
     int row = y / sprite->tileHeight * layer->widthInTiles;
 
-    TileData *d = layer->data[column + row];
+    TileData *d = layer->data[row][column];
+    std::cout << "Tile for: (" << x << ", " << y << ") is: " << row << ", " << column << std::endl;
+    SDL_assert(d != nullptr);
     SDL_assert(d->cx - sprite->tileWidth/2 <= x);
     SDL_assert(d->cx + sprite->tileWidth/2 >= x);
     SDL_assert(d->cy - sprite->tileHeight/2 <= y);

@@ -10,13 +10,15 @@ void ShootSystem::update(int elapsedTimeMS, World &world)
     for(auto entities : world.entities)
     {
         Entity *entity = entities.second;
-        if(!entity->hasComponents(K_AMMUNITION | K_WEAPON_STAT | K_PLAYER_INPUT)) {
+        if(!entity->hasComponents(ComponentTypes::K_AMMUNITION) || 
+                !entity->hasComponents(ComponentTypes::K_WEAPON_STAT) || 
+                !entity->hasComponents(ComponentTypes::K_PLAYER_INPUT)) {
                 continue;
         }
-        PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(K_PLAYER_INPUT));
-        Collidable *collidable = static_cast<Collidable *>(entity->getComponentForType(K_COLLIDABLE));
-        Ammunition *ammo = static_cast<Ammunition *>(entity->getComponentForType(K_AMMUNITION));
-        WeaponStat *weapon = static_cast<WeaponStat *>(entity->getComponentForType(K_WEAPON_STAT));
+        PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(ComponentTypes::K_PLAYER_INPUT));
+        Collidable *collidable = static_cast<Collidable *>(entity->getComponentForType(ComponentTypes::K_COLLIDABLE));
+        Ammunition *ammo = static_cast<Ammunition *>(entity->getComponentForType(ComponentTypes::K_AMMUNITION));
+        WeaponStat *weapon = static_cast<WeaponStat *>(entity->getComponentForType(ComponentTypes::K_WEAPON_STAT));
 
 
         //Pre-checks

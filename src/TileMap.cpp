@@ -31,25 +31,27 @@ void TileMap::render(Graphics &graphics)
     {
         layerW = layer->widthInTiles;
         layerH = layer->heightInTiles;
-        for(int i = 0; i < layerW * layerH; ++i)
+        for(int i = 0; i < layerH; ++i)
         {
-            TileData *tile = layer->data[i];
-            int id = tile->tileId;
-            if(id > 0) {
-                --id;
-            } else {
-                continue;
+            for(int j = 0; j < layerW; j++) {
+                TileData *tile = layer->data[i][j];
+                int id = tile->tileId;
+                if(id > 0) {
+                    --id;
+                } else {
+                    continue;
+                }
+
+                columnInSpriteSheet = id % 8;
+                rowInSpriteSheet = id / 8;
+
+                tileLocation.x = tile->x;
+                tileLocation.y = tile->y;
+                sourceLocation.x = columnInSpriteSheet * tileLocation.w;
+                sourceLocation.y = rowInSpriteSheet * tileLocation.h;
+
+                graphics.drawTexture(currentMap.sprite->texture, &tileLocation, &sourceLocation);
             }
-
-            columnInSpriteSheet = id % 8;
-            rowInSpriteSheet = id / 8;
-
-            tileLocation.x = tile->x;
-            tileLocation.y = tile->y;
-            sourceLocation.x = columnInSpriteSheet * tileLocation.w;
-            sourceLocation.y = rowInSpriteSheet * tileLocation.h;
-
-            graphics.drawTexture(currentMap.sprite->texture, &tileLocation, &sourceLocation);
         }
     }
 }

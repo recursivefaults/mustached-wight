@@ -5,14 +5,17 @@
 void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
     for (auto ev: world.entities) {
         Entity *entity = ev.second;
-        if(!entity->hasComponents(K_PLAYER_INPUT_MAP))
+        if(!entity->hasComponents(ComponentTypes::K_PLAYER_INPUT_MAP))
         {
             continue;
         }
 
-        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(K_VELOCITY));
-        PlayerInputMap *inputMap = static_cast<PlayerInputMap *>(entity->getComponentForType(K_PLAYER_INPUT_MAP));
-        PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(K_PLAYER_INPUT));
+        std::cout << "EntityID: " << entity->getId() << std::endl;
+        SDL_assert(entity->getId() == 0);
+
+        Velocity *v = static_cast<Velocity *>(entity->getComponentForType(ComponentTypes::K_VELOCITY));
+        PlayerInputMap *inputMap = static_cast<PlayerInputMap *>(entity->getComponentForType(ComponentTypes::K_PLAYER_INPUT_MAP));
+        PlayerInput *input = static_cast<PlayerInput *>(entity->getComponentForType(ComponentTypes::K_PLAYER_INPUT));
 
 
         SDL_assert(v != nullptr);
@@ -50,7 +53,7 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
         }
 
         //This feels weird here
-        Rendered *render = static_cast<Rendered *>(entity->getComponentForType(K_RENDERED));
+        Rendered *render = static_cast<Rendered *>(entity->getComponentForType(ComponentTypes::K_RENDERED));
         if(dirty == false)
         {
             if(v->velX > 0.0) {
@@ -61,7 +64,7 @@ void PlayerInputSystem::update(int elapsedTimeMs, World &world) {
             }
             //No keys touched, default to standing
             render->currentFrame = 0;
-            entity->removeComponent(K_ANIMATION);
+            entity->removeComponent(ComponentTypes::K_ANIMATION);
             v->velX = 0;
         }
     }

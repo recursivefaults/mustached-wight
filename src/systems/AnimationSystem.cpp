@@ -7,14 +7,13 @@ void AnimationSystem::update(int elapsedTimeMS, World &world)
     for(auto ev : world.entities)
     {
         Entity *entity = ev.second;
-        if(!entity->hasComponents(K_ANIMATION))
+        if(!entity->hasComponents(ComponentTypes::K_ANIMATION))
         {
             continue;
         }
 
-
-        Animation *animation = static_cast<Animation *>(entity->getComponentForType(K_ANIMATION));
-        Rendered *rendered = static_cast<Rendered *>(entity->getComponentForType(K_RENDERED));
+        Animation *animation = static_cast<Animation *>(entity->getComponentForType(ComponentTypes::K_ANIMATION));
+        Rendered *rendered = static_cast<Rendered *>(entity->getComponentForType(ComponentTypes::K_RENDERED));
         Sprite *s = world.manager.getNamedSprite(rendered->spriteName);
 
         SDL_assert(animation != nullptr);

@@ -2,19 +2,18 @@
 #include "Entity.h"
 #include <iostream>
 
-void Entity::addComponent(ComponentFlags type, Component *component)
+void Entity::addComponent(ComponentTypes type, Component *component)
 {
     components[type] = component;
-    componentMask |= type;
 }
-bool Entity::hasComponents(ComponentFlags mask)
+bool Entity::hasComponents(ComponentTypes mask)
 {
-    return componentMask & mask;
+    return components.find(mask) != components.end();
 }
-Component* Entity::getComponentForType(ComponentFlags type)
+Component* Entity::getComponentForType(ComponentTypes type)
 {
     
-    std::map<ComponentFlags, Component*>::iterator item = components.find(type);
+    std::map<ComponentTypes, Component*>::iterator item = components.find(type);
     if(item == components.end()) {
         return nullptr;
     }
@@ -22,9 +21,9 @@ Component* Entity::getComponentForType(ComponentFlags type)
 
 }
 
-void Entity::removeComponent(ComponentFlags type)
+void Entity::removeComponent(ComponentTypes type)
 {
-    std::map<ComponentFlags, Component*>::iterator item = components.find(type);
+    std::map<ComponentTypes, Component*>::iterator item = components.find(type);
 
     if(item == components.end()) {
         return;
@@ -34,6 +33,4 @@ void Entity::removeComponent(ComponentFlags type)
         delete(item->second);
     }
     components.erase(item);
-    
-    componentMask &= ~type;
 }

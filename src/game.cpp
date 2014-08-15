@@ -84,12 +84,12 @@ void Game::render() {
     Sprite *s;
     SDL_Rect destRect;
     for(auto kv = world.entities.begin(); kv != world.entities.end(); kv++) {
-        if(!kv->second->hasComponents(K_RENDERED | K_POSITION)) {
+        if(!kv->second->hasComponents(ComponentTypes::K_RENDERED) || !kv->second->hasComponents(ComponentTypes::K_POSITION)) {
             continue;
         }
-        render = static_cast<Rendered *>(kv->second->getComponentForType(K_RENDERED));
-        p = static_cast<Position *>(kv->second->getComponentForType(K_POSITION));
-        mod = static_cast<ColorMod *>(kv->second->getComponentForType(K_COLORMOD));
+        render = static_cast<Rendered *>(kv->second->getComponentForType(ComponentTypes::K_RENDERED));
+        p = static_cast<Position *>(kv->second->getComponentForType(ComponentTypes::K_POSITION));
+        mod = static_cast<ColorMod *>(kv->second->getComponentForType(ComponentTypes::K_COLORMOD));
         destRect.x = p->x;
         destRect.y = p->y; 
         destRect.w = render->w;
