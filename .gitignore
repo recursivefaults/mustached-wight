@@ -1,5 +1,6 @@
 **.DS_STORE
 obj/
 **.o
-Zombie Walk
+Makefile
+Zombie Walk*
 zombie
