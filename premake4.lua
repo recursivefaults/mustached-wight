@@ -3,10 +3,11 @@ solution "Zombie Walk"
    configurations { "Debug", "Release" }
  
    -- A project defines one build target
-   project "Zombie Walk"
+   project "zombie_walk"
       kind "ConsoleApp"
       language "C++"
       files { "**.h", "**.cpp" }
+      excludes { "test/*" }
       links {"SDL2", "SDL2_image"}
       libdirs {"/usr/local/lib"}
       includedirs {"/usr/local/include", "lib"}
@@ -19,3 +20,12 @@ solution "Zombie Walk"
       configuration "Release"
          defines { "NDEBUG" }
          flags { "Optimize" }
+
+    project "test"
+        kind "ConsoleApp"
+        language "C++"
+        files { "**.h", "**.cpp" }
+        links {"SDL2", "SDL2_image"}
+        libdirs {"/usr/local/lib"}
+        includedirs {"/usr/local/include", "lib"}
+        buildoptions {"-Wall", "-std=c++11" }

@@ -1,6 +1,5 @@
 **.DS_STORE
 obj/
 **.o
-Makefile
-Zombie Walk*
-zombie
+*.make
+zombie_walk
