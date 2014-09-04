@@ -10,7 +10,7 @@ solution "Zombie Walk"
  
    -- A project defines one build target
    project "zombie_walk"
-      files { "**.h", "**.cpp" }
+      files { "src/**.h", "src/**.cpp", "lib/jsoncpp.cpp" }
       excludes { "test/*" }
  
       configuration "Debug"
@@ -22,5 +22,6 @@ solution "Zombie Walk"
          flags { "Optimize" }
 
     project "test"
-        files { "src/**.h", "src/**.cpp", "test/**.cpp", "lib/gtest/gtest_main.cc" }
+        excludes { "src/main.cpp" }
+        files { "src/**.h", "src/**.cpp", "lib/jsoncpp.cpp", "test/**.cpp", "lib/gtest/*.cc" }
         includedirs {"/usr/local/include", "lib"}
