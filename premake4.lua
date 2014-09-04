@@ -10,7 +10,7 @@ solution "Zombie Walk"
       excludes { "test/*" }
       links {"SDL2", "SDL2_image"}
       libdirs {"/usr/local/lib"}
-      includedirs {"/usr/local/include", "lib"}
+      includedirs {"/usr/local/include", "include", "lib"}
       buildoptions {"-Wall", "-std=c++11" }
  
       configuration "Debug"
@@ -24,8 +24,8 @@ solution "Zombie Walk"
     project "test"
         kind "ConsoleApp"
         language "C++"
-        files { "**.h", "**.cpp" }
-        links {"SDL2", "SDL2_image"}
-        libdirs {"/usr/local/lib"}
+        files { "src/**.h", "src/**.cpp", "test/**.cpp", "lib/gtest/gtest_main.cc" }
+        links {"SDL2", "SDL2_image" }
+        libdirs {"/usr/local/lib", "lib"}
         includedirs {"/usr/local/include", "lib"}
         buildoptions {"-Wall", "-std=c++11" }

@@ -75,7 +75,6 @@ struct AABB: public Component
 
         bool didSimpleCollide(AABB &other, Vector2d &collision);
         bool didMinkowskiCollide(AABB &other);
-
 };
 
 struct Bullet : public Component
