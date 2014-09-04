@@ -1,6 +1,6 @@
 #include "ShootSystem.h"
-#include "../Components.h"
-#include "../EntityFactory.h"
+#include "Components.h"
+#include "EntityFactory.h"
 
 #include <iostream>
 

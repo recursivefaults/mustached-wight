@@ -4,7 +4,7 @@
 #include <vector>
 #include "Texture.h"
 
-#include "../zombie_walk.h"
+#include "zombie_walk.h"
 
 struct Sprite
 {

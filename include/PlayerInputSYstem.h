@@ -1,7 +1,7 @@
 #ifndef PLAYERINPUTSYSTEM_H 
 #define PLAYERINPUTSYSTEM_H
 
-#include "../zombie_walk.h"
+#include "zombie_walk.h"
 #include "System.h"
 
 

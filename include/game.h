@@ -5,7 +5,7 @@
 #include "zombie_walk.h"
 
 #include "graphics.h"
-#include "systems/System.h"
+#include "System.h"
 #include "World.h"
 #include "Entity.h"
 #include "input_state.h"

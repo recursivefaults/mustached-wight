@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "../graphics.h"
+#include "graphics.h"
 #include "Layer.h"
 #include "TileSprite.h"
 

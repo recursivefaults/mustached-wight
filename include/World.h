@@ -4,9 +4,9 @@
 #include <map>
 
 #include "Entity.h"
-#include "tiles/Map.h"
+#include "Map.h"
 #include "Components.h"
-#include "assets/SpriteManager.h"
+#include "SpriteManager.h"
 
 class World
 {

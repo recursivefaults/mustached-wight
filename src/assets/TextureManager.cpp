@@ -1,5 +1,5 @@
 #include "TextureManager.h"
-#include "../asset_helper.h"
+#include "asset_helper.h"
 #include <iostream>
 
 Texture *TextureManager::getTextureForName(const std::string &name)

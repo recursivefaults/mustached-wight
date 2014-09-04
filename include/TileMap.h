@@ -6,7 +6,7 @@
 #include "zombie_walk.h"
 #include "asset_helper.h"
 #include "graphics.h"
-#include "tiles/Map.h"
+#include "Map.h"
 
 class TileMap
 {

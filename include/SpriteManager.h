@@ -5,7 +5,7 @@
 #include <map>
 #include "Sprite.h"
 #include "TextureManager.h"
-#include "../zombie_walk.h"
+#include "zombie_walk.h"
 
 class SpriteManager
 {

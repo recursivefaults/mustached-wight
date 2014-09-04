@@ -1,7 +1,7 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include "../zombie_walk.h"
+#include "zombie_walk.h"
 #include <iostream>
 
 class Texture

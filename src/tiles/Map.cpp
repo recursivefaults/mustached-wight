@@ -1,6 +1,6 @@
 #include "Map.h"
 #include "json/json.h"
-#include "../asset_helper.h"
+#include "asset_helper.h"
 #include <fstream>
 
 #include <iostream>

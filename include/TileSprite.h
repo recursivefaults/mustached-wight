@@ -1,7 +1,7 @@
 #ifndef TILESPRITE_H
 #define TILESPRITE_H
 
-#include "../zombie_walk.h"
+#include "zombie_walk.h"
 class TileSprite
 {
 

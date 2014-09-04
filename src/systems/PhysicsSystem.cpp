@@ -1,6 +1,6 @@
 #include "PhysicsSystem.h"
-#include "../Components.h"
-#include "../zombie_walk.h"
+#include "Components.h"
+#include "zombie_walk.h"
 
 
 #include <iostream>

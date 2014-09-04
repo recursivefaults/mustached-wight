@@ -1,10 +1,10 @@
 #include <iostream>
 #include "Game.h"
 #include "TileMap.h"
-#include "systems/SystemFactory.h"
+#include "SystemFactory.h"
 
 #include "EntityFactory.h"
-#include "assets/TextureManager.h"
+#include "TextureManager.h"
 
 Game::~Game() {
     SDL_Quit();

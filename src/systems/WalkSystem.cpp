@@ -1,6 +1,6 @@
 #include "WalkSystem.h"
-#include "../Constants.h"
-#include "../Components.h"
+#include "Constants.h"
+#include "Components.h"
 
 #include <iostream>
 
